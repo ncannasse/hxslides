@@ -1,4 +1,6 @@
-hxslides
+Haxe Slides
 ========
 
-HTML5 Slideshow for Haxe Presentations
+HTML5 Slideshow for Haxe Presentations.
+
+Look at `www/template.html` for an example.

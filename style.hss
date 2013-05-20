@@ -1,0 +1,116 @@
+//@options -output www/css/
+
+body {
+	overflow : hidden;
+	overflow-y : CSS('auto');
+	background-color : #333;
+	padding : 0;
+	font-family : 'Open Sans', 'Arial';
+	font-size : 26px;
+	font-weight : normal;
+	color : #797979;
+}
+
+p {
+	margin-left : 20px;
+}
+
+ol.menu {
+	position : absolute;
+	z-index : 2;
+	li {
+		a {
+			color : #666;
+			text-decoration : none;
+		}
+		a:hover {
+			color : #aaa;
+		}
+		font-size : 10px;
+		margin : 0px;
+	}
+}
+
+.slide {
+	user-select : none;
+	position: relative;
+	border-radius : 5px;
+	background-color : #fff;
+	margin : 10px auto;
+	padding : 10px;
+	hss-width : 800px;
+	hss-height : 600px;
+}
+
+.slide-event {
+	hss-width : 800px;
+	hss-height : 600px;
+	position : absolute;
+	top : 0px;
+	left : 0px;
+	z-index : 1;
+}
+
+.slide.title {
+	h1 {
+		margin-top : 200px;
+		font-size : 80px;
+	}
+	p {
+		text-align : right;
+		position: absolute;
+		right: 30px;
+		bottom: 30px;
+	}
+}
+
+.slide-container {
+	width : 100%;
+	position : absolute;
+}
+
+li {
+	margin-bottom : 20px;
+}
+
+ul ul {
+	font-size : 80%;
+	li {
+		margin-bottom : 5px;
+	}
+}
+
+h1 {
+	margin-top : 0px;
+	text-align : center;
+	color : #515151;
+	font-size : 45px;
+	font-weight : bold;
+}
+
+h2 {
+	text-align : center;
+}
+
+pre, div.pre {
+	font-family : 'Source Code Pro', 'Courier New';
+	font-size : 20px;
+	color : #333;
+	background-color : #f3f3f3;
+	border : 1px solid #bbb;
+	margin : 15px;
+	padding : 5px;
+	border-left : 20px solid #bbb;
+	.kwd {
+		color : #008;
+	}
+	.val {
+		color : #448;
+	}
+	.str {
+		color : #800;
+	}
+	.cmt {
+		color : #080;
+	}
+}
