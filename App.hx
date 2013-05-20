@@ -68,6 +68,7 @@ class App {
 			var p = s.wrap("<div class='slide-container'>").parent();
 			var id = slides.length;
 			var parts = s.find("li,pre,h2,p,div.pre .line").filter(clickThrough ? "*" : "empty");
+			parts = parts.not(".visible");
 			parts.hide();
 			if( id == cur ) {
 				for( i in 0...sub )
