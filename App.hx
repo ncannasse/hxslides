@@ -36,8 +36,8 @@ class App {
 			html = html.split("\t").join("    ");
 			s.html(html);
 		}
-
-		var clickThrough = true;
+		
+		var clickThrough = js.Browser.window.localStorage.getItem("click") != "false";
 
 		for( pre in J("pre.byLine") ) {
 			var div = J("<div>").addClass("pre");
@@ -66,8 +66,9 @@ class App {
 		if( sub == null ) sub = 0;
 		for( s in J(".slide") ) {
 			var p = s.wrap("<div class='slide-container'>").parent();
+			s.prepend(J("<div>").addClass("slide-bg"));
 			var id = slides.length;
-			var parts = s.find("li,pre,h2,p,div.pre .line").filter(clickThrough ? "*" : "empty");
+			var parts = s.find("li,pre,h2,p,div.pre .line,.click").filter(clickThrough ? "*" : "empty");
 			parts = parts.not(".visible");
 			parts.hide();
 			if( id == cur ) {
@@ -93,11 +94,18 @@ class App {
 			});
 		}
 		
-		var menu = J("<ol>").addClass("menu");
+		var menu = J("<div>").addClass("menu");
+		var ol = J("<ol>");
 		for( i in 0...slides.length ) {
 			var title = slides[i].find("h1").text();
-			menu.append(J("<li>").append(J("<a>").attr("href", "#" + i).text(title)));
+			ol.append(J("<li>").append(J("<a>").attr("href", "#" + i).text(title)));
 		}
+		menu.append(ol);
+		menu.append(J("<a>").text("Present mode : "+clickThrough).click(function() {
+			clickThrough = !clickThrough;
+			js.Browser.window.localStorage.setItem("click", "" + clickThrough);
+			js.Browser.location.reload();
+		}));
 		J("body").append(menu);
 		
 		slides[cur].show();

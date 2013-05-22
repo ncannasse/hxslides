@@ -34,7 +34,7 @@ App.main = function() {
 		html = html.split("\t").join("    ");
 		s.html(html);
 	}
-	var clickThrough = true;
+	var clickThrough = js.Browser.window.localStorage.getItem("click") != "false";
 	var $it1 = (new js.JQuery("pre.byLine").iterator)();
 	while( $it1.hasNext() ) {
 		var pre = $it1.next();
@@ -66,8 +66,9 @@ App.main = function() {
 	while( $it2.hasNext() ) {
 		var s = $it2.next();
 		var p = [s.wrap("<div class='slide-container'>").parent()];
+		s.prepend(new js.JQuery("<div>").addClass("slide-bg"));
 		var id = [slides.length];
-		var parts = [s.find("li,pre,h2,p,div.pre .line").filter(clickThrough?"*":"empty")];
+		var parts = [s.find("li,pre,h2,p,div.pre .line,.click").filter(clickThrough?"*":"empty")];
 		parts[0] = parts[0].not(".visible");
 		parts[0].hide();
 		if(id[0] == cur) {
@@ -97,13 +98,20 @@ App.main = function() {
 			};
 		})(parts,id,p));
 	}
-	var menu = new js.JQuery("<ol>").addClass("menu");
+	var menu = new js.JQuery("<div>").addClass("menu");
+	var ol = new js.JQuery("<ol>");
 	var _g1 = 0, _g = slides.length;
 	while(_g1 < _g) {
 		var i = _g1++;
 		var title = slides[i].find("h1").text();
-		menu.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i).text(title)));
+		ol.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i).text(title)));
 	}
+	menu.append(ol);
+	menu.append(new js.JQuery("<a>").text("Present mode : " + Std.string(clickThrough)).click(function() {
+		clickThrough = !clickThrough;
+		js.Browser.window.localStorage.setItem("click","" + Std.string(clickThrough));
+		js.Browser.location.reload();
+	}));
 	new js.JQuery("body").append(menu);
 	slides[cur].show();
 	var t = new haxe.Timer(100);
@@ -277,6 +285,7 @@ q.fn.iterator = function() {
 		return $(this.j[this.pos++]);
 	}};
 };
+js.Browser.window = typeof window != "undefined" ? window : null;
 js.Browser.location = typeof window != "undefined" ? window.location : null;
 App.main();
 })();
