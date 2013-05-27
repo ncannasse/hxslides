@@ -1,0 +1,667 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="slide title">
+	<h1>What is Haxe</h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>WWX 2013</i>
+	</p>
+
+</div>
+
+<div class="slide">
+	<h1>One Year Of Haxe</h1>
+
+	<ul>
+		<li>WWX 2012 in April:
+			<ul>
+				<li>2.09 release</li>
+				<li>announcing Haxe Foundation plans</li>
+			</ul>
+		</li>
+		<li>
+			And then:
+			<ul>
+				<li>2.10 in July</li>
+				<li>Haxe Foundation in November</li>
+				<li>3.0-RC1 in Feb</li>
+				<li>3.0-RC2 in May</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h2>3.0 available TODAY</h2>
+
+</div>
+
+
+<div class="slide">
+	<h1>Haxe 3.0</h1>
+	<ul>
+		<li>Major version == breaking changes
+			<ul>
+				<li>Straightforward porting</li>
+			</ul>
+		</li>
+		<li>
+			Design goals:
+			<ul>
+				<li>simplify</li>
+				<li>specify</li>
+				<li>enhance</li>
+				<li>no edges</li>
+			</ul>
+		</li>
+		<li>
+			New <code>haxelib</code> repository
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - Properties</h1>
+	
+	<p>
+		In 2.x:
+	</p>
+
+	<pre>
+class Example {
+	public var name(default,setName) : String;
+	public var age(getAge,setAge) : Int;
+}
+	</pre>
+	
+	<p>
+		In 3.x:
+	</p>
+	
+	<pre>
+class Example {
+	public var name(default,set) : String;
+	@:isField public var age(get,set) : Int;
+	function set_name(v) {
+		//....
+	}
+}
+	</pre>
+	
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - bind()</h1>
+	<p>
+		In 2.x:
+	</p>
+	<pre>
+		function onClicked(item:Item) {
+		}
+		//...
+		for( item in allItems )
+			item.elt.click(callback(onClicked,item));
+	</pre>
+	<p>
+		In 3.x:
+	</p>
+	<pre>
+		for( item in allItems )
+			item.elt.click(onClicked.bind(item));
+	</pre>
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - bind()</h1>
+
+	<p>
+		More use cases:
+	</p>
+
+	<pre class="byLine">
+		function div(x,y) return x / y;
+		div(1,2);
+		var invert = div.bind(1);
+		invert(2);
+		var percent = div.bind(_,100);
+		percent(5);
+	</pre>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - Map</h1>
+
+	<p>
+		In 2.x:
+	</p>
+
+	<pre class="byLine">
+		var byName : Hash&lt;MyObject> = new Hash();
+		var byId : IntHash&lt;MyObject> = new IntHash();
+	</pre>
+	
+	<p>
+		In 3.x:
+	</p>
+
+	<pre class="byLine">
+		var byName : Map&lt;String,MyObject> = new Map();
+		var byId : Map&lt;Int,MyObject> = new Map();
+		// but also:
+		var objectMap : Map&lt;MyObject,MyOtherObject> = new Map();
+		var enumMap : Map&lt;MyEnum,Something> = new Map();
+	</pre>
+	
+	<p>
+		Literal maps:
+	</p>
+	<pre>
+		[ "Hello" => "World", "WWX" => "Rocks!" ]
+	</pre>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - API changes</h1>
+	
+	<ul>
+		<li>
+			Cross-platform packages:
+			<pre class="byLine">
+				(neko|cpp|php).FileSystem -> sys.FileSystem
+				(neko|cpp|php).io -> sys.io
+				class Sys // print(), args(), etc.
+			</pre>
+		</li>
+		<li>
+			New <code>haxe.crypto</code> package (Md5, Sha1, etc.)
+		</li>
+		<li>
+			New <code>haxe.ds</code> package for datastructures (GenericStack, Vector, WeakMap, ...)
+		</li>
+		<li>
+			Removal of <code>haxe.Int32</code> (Neko 2.0+ has native int32 support)
+		</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - String Interpolation</h1>
+
+	<ul>
+		<li>
+		Single quoted string are now interpolated:
+		
+		<pre class="byLine">
+			var name = "WWX";
+			'Hello $name!';
+			'Hello ${name.toLowerCase()}!';
+		</pre>
+		</li>
+		
+	<li>(byebye <code>Std.format</code>)</li>
+	<li><b>/!\</b> Use <code>-D format-warning</code> when porting code using it.</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - Pattern Matching</h1>
+	<pre>
+	enum E {
+		Leaf;
+		Value( v : Int );
+		Tree( left : E, right : E );
+	}
+	</pre>
+	<p>
+		Different cases:
+	</p>
+	<pre class="byLine">
+	switch( e ) {
+	case Leaf:
+	case Value(0):
+	case Value(x) if( x > 0 ): /* guard */
+	case Tree(Leaf,Value(x)):
+	case all: throw "Error "+all;
+	}
+	</pre>
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - Array Comprehension</h1>
+	
+	<p>
+		In 2.x:
+	</p>
+	
+	<pre>
+	var arr = new Array();
+	for( i in 0...10 )
+		arr.push(i);
+	</pre>
+	
+	<p>
+		In 3.x:
+	</p>
+	
+	<pre>
+	var arr = [for( i in 0...10 ) i];
+	</pre>
+</div>
+
+<div class="slide">
+	
+	<h1>Haxe 3.0 - Array Comprehension</h1>
+	
+	<p>
+		Inner loops and filters:
+	</p>
+	
+	<pre>
+	var arr = [
+		for( x in 0...10 )
+			for( y in 0...10 )
+				if( x+y &lt; 10 ) x*y;
+	];
+	</pre>
+	
+	<p>
+		Map comprenhension:
+	</p>
+	
+	<pre>
+	var m = [for( x in 0...10 ) x => x*x];
+	</pre>
+	
+</div>
+
+<div class="slide">
+	
+	<h1>Haxe 3.0 - Abstract types</h1>
+	
+	
+	<pre>
+	abstract Meter(Int) {
+		public function new(i:Int) this = i;
+		public function toInt() : Int return this;
+	}
+	abstract Kilometer(Float) {
+		public function new(i:Float) this = i;
+		public function toInt() : Float return this;
+	}
+	</pre>
+	
+	<pre>
+		var m = new Meter(1000);
+		var k = new Kilometer(1.0);
+	</pre>
+	
+	<p>
+		Compiles to:
+	</p>
+	
+	<pre>
+		var m = 1000;
+		var k = 1.0;
+	</pre>
+	
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - Abstract types</h1>
+	
+	<p>
+		Auto-cast <i>from</i>:
+	</p>
+	
+	<pre>
+		abstract Meter(Int) {
+			//...
+			@:from static inline function fromInt(i) {
+				return new Meter(i);
+			}
+		}
+	</pre>
+	
+	<p>
+		Now allows:
+	</p>
+	
+	<pre>
+		var x : Meter = 10;
+	</pre>
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - Abstract types</h1>
+	
+	<p>
+		Auto-cast <i>to</i>:
+	</p>
+	
+	<pre>
+		abstract Meter(Int) {
+			//...
+			@:to inline function toKilometer() {
+				return new Kilometer(this/1000.0);
+			}
+		}
+	</pre>
+	
+	<pre>
+		var x : Kilometer = new Meter(100);
+	</pre>
+	
+	<p>
+		Compiles to:
+	</p>
+	
+	<pre>
+		var x = 0.1;
+	</pre>
+	
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0 - More Abstract types</h1>
+
+	<ul>
+		<li>allows operator overloading
+			<pre>
+			abstract Meter(Int) {
+			  //...
+			  @:op(A + B) static function add(a:Meter,b:Meter):Meter;
+			}
+			</pre>
+		</li>
+		<li>allows [] overloading</li>
+		<li>allows type selection based on type parameters
+			<ul>
+				<li>(see <code>Map</code> implementation)</li>
+			</ul>
+		</li>
+		<li>
+			abstract types are a swiss knife:
+			<ul>
+				<li>very powerful</li>
+				<li>to use wisely</li>
+				<li><b>/!\</b> not a class! (no reflect, serialize, etc.)</li>
+			</ul>
+		</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Haxe 3.0</h1>
+	<p>
+		Announcement:
+	</p>
+	
+	<h2>We're now on Github!</h2>
+	
+	<p>
+		<a href="http://github.com/HaxeFoundation" target="_blank">http://github.com/HaxeFoundation</a>
+	</p>
+</div>
+
+<div class="slide">
+	<h1>Haxe Foundation</h1>
+
+	<ul>
+		<li>Created mi-November</li>
+		<li>Manages Haxe development</li>
+		<li>Makes plans for the future</li>
+		<li>Ensures long term Haxe investement</li>
+		<li>Provides support for companies</li>
+		<li>Raised around $100K in the past months</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe Foundation</h1>
+
+	<p>Our partners:</p>
+	
+	<ul>
+		<li>TiVo</li>
+		<li>Prezi.com</li>
+		<li>Area9.dk</li>
+		<li>Motion-Twin</li>
+		<li>Stencyl</li>
+		<li>Knowledge Players</li>
+		<li>Nickelodeon</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe Foundation</h1>
+
+	<p>Our plans:</p>
+	
+	<ul>
+		<li>Haxe 3.0
+			<ul>
+				<li>Huge thanks to Simon Krajewski</li>
+				<li><code>std</code> Specification</li>
+				<li><a href="http://github.com/HaxeFoundation/HaxeManual" target="_blank">Language Manual/Reference</a></li>
+				<li>More documentation</li>
+			</ul>
+		</li>
+		<li>
+			Marketing
+			<ul>
+				<li>What is Haxe</li>
+				<li>New website</li>
+				<li>Announcements</li>
+			</ul>
+		</li>
+		<li>Tooling</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>What is Haxe</h1>
+	
+	<ul>
+		<li>A wonderful programming language?
+			<ul>
+				<li>(yet another one...)</li>
+			</ul>
+		</li>
+		<li>A very fast compiler?
+			<ul>
+				<li>(what for?)</li>
+			</ul>
+		</li>
+		<li>A cross-plaform standard library?
+			<ul>
+				<li>(I only care about platform X!)</li>
+			</ul>
+		</li>
+		<li>
+			A Flash replacement?
+			<ul>
+				<li>(it's a dead technology, no?)</li>
+			</ul>
+		</li>
+		<li>
+			A better Javascript?
+			<ul>
+				<li>(just like Dart/CoffeeScript/TypeScript/etc.)</li>
+			</ul>
+		</li>
+		<li>Actually: all of that <span class="click">(and even MORE)</span></li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Haxe Misperceptions</h1>
+	
+	<ul>
+		<li>Confusing use cases : "why crossplatform?"</li>
+		<li>"Jack of all trades" syndrom</li>
+		<li>"Common lowest denominator"</li>
+		<li>"Write once, run everywhere" (;_;)</li>
+		<li>"Haxe == NME"</li>
+		<li>A click 'n play framework</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>What is Haxe</h1>
+
+	<ul>
+		<li>A core technology</li>
+		<li>To build cross-platform apps/games/tools/frameworks</li>
+		<li>Many potential uses cases
+			<ul>
+				<li>Differentiate the low level core from the high level frameworks</li>
+				<li>NME is one of them</li>
+				<li>More will come...</li>
+			</ul>
+		</li>
+		<li>Not just a language: a complete set of tools
+			<ul>
+				<li>macros</li>
+				<li>conditional compilation</li>
+				<li>haxelib</li>
+				<li>More will come...</li>
+			</ul>
+		</li>
+		
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>What is Haxe</h1>
+
+	<p>
+		A new way to define it:
+	</p>
+	
+	<h2>&laquo;Haxe, The cross-plaform toolkit&raquo;</h2>
+	
+	<ul>
+		<li>A cross-platform compiler</li>
+		<li>Based on the Haxe language</li>
+		<li>And the Haxe standard library</li>
+		<li>Comes with a complete toolset</li>
+		<li>Is used to write Famous Framework XYZ</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>New Haxe Website</h1>
+	
+	<ul>
+		<li>Based on this new definition</li>
+		<li>Gets rid of old Wiki
+			<ul>
+				<li>Too much outdated content</li>
+			</ul>
+		</li>
+		<li>
+			Complete documentation:
+			<ul>
+				<li>Full std library specified</li>
+				<li>Language Reference in details</li>
+				<li>Guides for cross-platform dev</li>
+			</ul>
+		</li>
+		<li>
+			Comes with <code>api.haxe.org</code>
+			<ul>
+				<li>Javadoc-like, searchable</li>
+				<li>Will integrate with haxelib</li>
+			</ul>
+		</li>
+		<li>
+			A <a href="http://HaxeFoundation.github.io/haxe.org/proto/index.html" target="_blank">sneak peek</a>?
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>More Tooling</h1>
+	
+	<h2>Haxedit</h2>
+	
+	<ul>
+		<li>A simple Haxe Editor</li>
+		<li>Based on a Chrome Frame
+			<ul>
+				<li>written in Haxe</li>
+				<li>plugin based</li>
+			</ul>
+		</li>
+		<li>Help us test/improve IDE integration
+			<ul>
+				<li>Completion</li>
+				<li>Goto definition</li>
+				<li>Refactoring</li>
+			</ul>
+		</li>
+		<li>Easy to get started
+			<ul>
+				<li>single tested scenario</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe Foundation</h1>
+	
+	<p>
+		The way we work:
+	</p>
+	
+	<ul>
+		<li>talk with our partners</li>
+		<li>define a strategy</li>
+		<li>decide priorities</li>
+		<li>invest our budget</li>
+		<li>we need motivated people!
+			<ul>
+				<li>If you have ideas that will help Haxe, contact us for founding</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Don't forget</h1>
+	
+	<p style="text-align:center">
+		<img src="img/wwx-macro.jpg"/>
+	</p>
+	
+	<h2>
+		Thank you!
+	</h2>
+	
+	<p style="font-size:70%">
+		Done with <code>http://github.com/ncannasse/hxslides</code>
+	</p>
+	
+</div>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+
+</body>
+</html>
