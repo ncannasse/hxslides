@@ -114,9 +114,12 @@ App.main = function() {
 	}));
 	new js.JQuery("body").append(menu);
 	slides[cur].show();
-	var t = new haxe.Timer(100);
-	t.run = function() {
-		if(js.Browser.location.hash != curHash) js.Browser.location.reload();
+	var t1 = new haxe.Timer(100);
+	t1.run = function() {
+		if(js.Browser.location.hash != curHash) {
+			js.Browser.location.reload();
+			t1.stop();
+		}
 	};
 }
 var EReg = function(r,opt) {
@@ -201,6 +204,11 @@ haxe.Timer.__name__ = true;
 haxe.Timer.prototype = {
 	run: function() {
 		console.log("run");
+	}
+	,stop: function() {
+		if(this.id == null) return;
+		clearInterval(this.id);
+		this.id = null;
 	}
 }
 var js = {}

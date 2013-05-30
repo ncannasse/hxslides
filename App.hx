@@ -111,8 +111,10 @@ class App {
 		slides[cur].show();
 		var t = new haxe.Timer(100);
 		t.run = function() {
-			if( js.Browser.location.hash != curHash )
+			if( js.Browser.location.hash != curHash ) {
 				js.Browser.location.reload();
+				t.stop();
+			}
 		};
 	}
 	
