@@ -6,12 +6,18 @@ App.main = function() {
 	var kwds1 = new EReg("\\b(" + kwds.join("|") + ")\\b","g");
 	var vals = ["null","true","false","this"];
 	var vals1 = new EReg("\\b(" + vals.join("|") + ")\\b","g");
-	var $it0 = (new js.JQuery("pre").iterator)();
+	var $it0 = (function($this) {
+		var $r;
+		var _this = new js.JQuery("pre");
+		$r = (_this.iterator)();
+		return $r;
+	}(this));
 	while( $it0.hasNext() ) {
 		var s = $it0.next();
 		var html = s.html();
 		var tabs = null;
-		var _g = 0, _g1 = html.split("\n");
+		var _g = 0;
+		var _g1 = html.split("\n");
 		while(_g < _g1.length) {
 			var line = _g1[_g];
 			++_g;
@@ -34,12 +40,18 @@ App.main = function() {
 		html = html.split("\t").join("    ");
 		s.html(html);
 	}
-	var clickThrough = js.Browser.window.localStorage.getItem("click") != "false";
-	var $it1 = (new js.JQuery("pre.byLine").iterator)();
+	var clickThrough = window.localStorage.getItem("click") != "false";
+	var $it1 = (function($this) {
+		var $r;
+		var _this = new js.JQuery("pre.byLine");
+		$r = (_this.iterator)();
+		return $r;
+	}(this));
 	while( $it1.hasNext() ) {
 		var pre = $it1.next();
 		var div = new js.JQuery("<div>").addClass("pre");
-		var _g = 0, _g1 = pre.html().split("\n");
+		var _g = 0;
+		var _g1 = pre.html().split("\n");
 		while(_g < _g1.length) {
 			var line = _g1[_g];
 			++_g;
@@ -54,15 +66,20 @@ App.main = function() {
 		if(clickThrough) div.hide();
 	}
 	var slides = [];
-	var curHash = js.Browser.location.hash;
-	var cur = Std.parseInt(HxOverrides.substr(js.Browser.location.hash,1,null));
-	var sub = Std.parseInt(js.Browser.location.hash.split("-")[1]);
+	var curHash = window.location.hash;
+	var cur = Std.parseInt(HxOverrides.substr(window.location.hash,1,null));
+	var sub = Std.parseInt(window.location.hash.split("-")[1]);
 	var update = function() {
-		js.Browser.location.hash = curHash = "#" + cur + "-" + sub;
+		window.location.hash = curHash = "#" + cur + "-" + sub;
 	};
 	if(cur == null) cur = 0;
 	if(sub == null) sub = 0;
-	var $it2 = (new js.JQuery(".slide").iterator)();
+	var $it2 = (function($this) {
+		var $r;
+		var _this = new js.JQuery(".slide");
+		$r = (_this.iterator)();
+		return $r;
+	}(this));
 	while( $it2.hasNext() ) {
 		var s = $it2.next();
 		var p = [s.wrap("<div class='slide-container'>").parent()];
@@ -100,24 +117,25 @@ App.main = function() {
 	}
 	var menu = new js.JQuery("<div>").addClass("menu");
 	var ol = new js.JQuery("<ol>");
-	var _g1 = 0, _g = slides.length;
+	var _g1 = 0;
+	var _g = slides.length;
 	while(_g1 < _g) {
 		var i = _g1++;
-		var title = slides[i].find("h1").text();
+		var title = slides[i].find("h1").eq(0).text();
 		ol.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i).text(title)));
 	}
 	menu.append(ol);
 	menu.append(new js.JQuery("<a>").text("Present mode : " + Std.string(clickThrough)).click(function() {
 		clickThrough = !clickThrough;
-		js.Browser.window.localStorage.setItem("click","" + Std.string(clickThrough));
-		js.Browser.location.reload();
+		window.localStorage.setItem("click","" + Std.string(clickThrough));
+		window.location.reload();
 	}));
 	new js.JQuery("body").append(menu);
 	slides[cur].show();
 	var t1 = new haxe.Timer(100);
 	t1.run = function() {
-		if(js.Browser.location.hash != curHash) {
-			js.Browser.location.reload();
+		if(window.location.hash != curHash) {
+			window.location.reload();
 			t1.stop();
 		}
 	};
@@ -128,21 +146,17 @@ var EReg = function(r,opt) {
 };
 EReg.__name__ = true;
 EReg.prototype = {
-	replace: function(s,by) {
-		return s.replace(this.r,by);
-	}
-	,matched: function(n) {
-		return this.r.m != null && n >= 0 && n < this.r.m.length?this.r.m[n]:(function($this) {
-			var $r;
-			throw "EReg::matched";
-			return $r;
-		}(this));
-	}
-	,match: function(s) {
+	match: function(s) {
 		if(this.r.global) this.r.lastIndex = 0;
 		this.r.m = this.r.exec(s);
 		this.r.s = s;
 		return this.r.m != null;
+	}
+	,matched: function(n) {
+		if(this.r.m != null && n >= 0 && n < this.r.m.length) return this.r.m[n]; else throw "EReg::matched";
+	}
+	,replace: function(s,by) {
+		return s.replace(this.r,by);
 	}
 }
 var HxOverrides = function() { }
@@ -202,13 +216,12 @@ haxe.Timer = function(time_ms) {
 };
 haxe.Timer.__name__ = true;
 haxe.Timer.prototype = {
-	run: function() {
-		console.log("run");
-	}
-	,stop: function() {
+	stop: function() {
 		if(this.id == null) return;
 		clearInterval(this.id);
 		this.id = null;
+	}
+	,run: function() {
 	}
 }
 var js = {}
@@ -226,7 +239,8 @@ js.Boot.__string_rec = function(o,s) {
 				if(o.length == 2) return o[0];
 				var str = o[0] + "(";
 				s += "\t";
-				var _g1 = 2, _g = o.length;
+				var _g1 = 2;
+				var _g = o.length;
 				while(_g1 < _g) {
 					var i = _g1++;
 					if(i != 2) str += "," + js.Boot.__string_rec(o[i],s); else str += js.Boot.__string_rec(o[i],s);
@@ -280,8 +294,6 @@ js.Boot.__string_rec = function(o,s) {
 		return String(o);
 	}
 }
-js.Browser = function() { }
-js.Browser.__name__ = true;
 String.__name__ = true;
 Array.__name__ = true;
 var q = window.jQuery;
@@ -293,7 +305,5 @@ q.fn.iterator = function() {
 		return $(this.j[this.pos++]);
 	}};
 };
-js.Browser.window = typeof window != "undefined" ? window : null;
-js.Browser.location = typeof window != "undefined" ? window.location : null;
 App.main();
 })();

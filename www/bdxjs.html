@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="slide title">
+	<h1>Haxe</h1>
+	<h1 class="sub">théorie et pratique</h1>
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>BordeauxJS - Nov. 2013</i>
+	</p>
+</div>
+
+<div class="slide">
+	<h1>Présentation</h1>
+
+	<ul>
+		<li>Créateur de jeux
+			<ul>
+				<li>2001-2012 : Motion-Twin</li>
+				<li>2012-* : Shiro Games</li>
+			</ul>
+		</li>
+		<li>
+			Créateur de technos:
+			<ul>
+				<li>Depuis 2005 : Haxe</li>
+				<li>NekoVM</li>
+				<li>HSS</li>
+				<li>Templo</li>
+				<li>Records ORM</li>
+				<li>h2d/h3d</li>
+				<li>CastleDB</li>
+			</ul>
+		</li>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>Haxe</h1>
+
+	<ul>
+		<li>Un toolkit multi platformes:
+			<ul>
+				<li>JS Brower / Node</li>
+				<li>PHP</li>
+				<li>C++ (Desktop + native Android/iOS)</li>
+				<li>Java</li>
+				<li>C#/.Net</li>
+				<li>NekoVM</li>
+				<li>Flash</li>
+			</ul>
+		</li>
+		<li>
+			Pour faire quoi ?
+			<h2>Survivre dans un monde qui change</h2>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Comment ?</h1>
+	
+	<ul>
+		<li>
+			Un langage de programmation
+			<ul>
+				<li>strictement typé</li>
+				<li>moderne, souple (pas Java)</li>
+			</ul>
+		</li>
+		<li>
+			Un compilateur
+			<ul>
+				<li>transforme <code>*.hx</code> en source/binaire</li>
+				<li>extremement rapide</li>
+				<li>extensible /macros</li>
+			</ul>
+		</li>
+		<li>
+			Une bibliothèque standard
+			<ul>
+				<li>cross platform</li>
+				<li>spec + tests unitaires</li>
+			</ul>
+		</li>
+		<li>
+			Des API pour la platforme
+			<ul>
+				<li>facile à compléter/modifier</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+
+<div class="slide">
+	<h1>Exemple</h1>
+	<p>
+		Un exemple de code pour se faire une idée:
+	</p>
+	<pre>
+function test() {
+  var str = "Hello world";
+  var chars = [for( i in 0...str.length ) str.charCodeAt(i)];
+  var tot = 0;
+  for( c in chars )
+	tot += c;
+  return tot;
+}
+	</pre>
+</div>
+
+<div class="slide">
+	<h1>Inférence</h1>
+	<p>
+		L'inférence de type en action:
+	</p>
+	<pre class="byLine">
+function test() {
+  var str : String = "Hello world";
+  var chars : Array&lt;Int&gt; = [for ...];
+  var tot : Int = 0;
+  var i = 0, len = chars.length;
+  while( i &lt; len )
+	tot += chars[i++];
+  return tot; // Int
+}
+	</pre>
+</div>
+
+<div class="slide">
+	<h1>Classes</h1>
+	<pre>
+		class User {
+			static var ROOT = "root";
+			var name : String;
+			var age : Int;
+			var money(default,set) : Float;
+			function set_money(v) {
+				//...
+			}
+			function new() {
+			}
+		}
+	</pre>
+	<p>
+		Seule contrainte : typer les variables membres des classes.
+	</p>
+</div>
+
+<div class="slide">
+	<h1>Compilation Conditionnelle</h1>
+	<p>
+		Permet d'avoir un comportement spécifique à la plateforme
+	</p>
+	<pre>
+		function display() {
+		#if js
+			// use canvas
+		#elseif cpp
+			// use opengl
+		#else
+			// save to drive
+		#end
+		}
+	</pre>
+	<ul>
+		<li>Implémenter des API cross platform</li>
+		<li>ajouter des spécificités (mobile, etc)</li>
+		<li>automatiser (debug, différentes configs, etc.)</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros</h1>
+	
+	<p>
+		<em>Un programme qui s'éxecute à la compilation.</em>
+	</p>
+	
+	<pre class="byLine">
+		macro function getFile( file : String ) {
+			var content = sys.io.File.getContent(file);
+			return macro $v{content};
+		}
+		//...
+		var str = getFile("config.json");
+	</pre>
+	
+	<p>
+		Génere dans le <code>.js</code>:
+	</p>
+	
+	<pre>
+		var str = '{ "user" : "warp", "pass" : "root" }';
+	</pre>
+	
+</div>
+
+
+<div class="slide">
+	<h1>Macros (2)</h1>
+	
+	<p>
+		Encore un peu mieux:
+	</p>
+	
+	<pre class="byLine">
+		macro function getFile( file : String ) {
+			var content = sys.io.File.getContent(file);
+			var obj = haxe.Json.parse(content);
+			return macro $v{obj};
+		}
+		//...
+		var o = getFile("config.json");
+		o.|
+	</pre>
+	
+	<p>
+		Génere dans le <code>.js</code>:
+	</p>
+	
+	<pre>
+		var str = { user : "warp", pass : "root" };
+	</pre>
+	
+</div>
+
+
+<div class="slide">
+	<h1>Macros (3)</h1>
+	
+	<p>
+		Haxe Records ORM:
+	</p>
+	
+	<pre>
+		var u = User.manager.search($age >= 18 && $name.like("X%"));
+	</pre>
+	
+	<p>
+		Génere dans le code:
+	</p>
+	
+	<pre>
+		var u = User.manager.query("age >= 18 AND name LIKE 'X%'");
+	</pre>
+	
+	<ul>
+		<li>vérifie que les champs existent bien</li>
+		<li>vérifie que l'on ne fait pas n'importe quoi</li>
+	</ul>
+	
+</div>
+
+<div class="slide title">
+	
+	<h1>La Pratique</h1>
+	
+</div>
+
+
+<div class="slide">
+
+	<h1>Game Frameworks</h1>
+	
+	<img src="http://haxepunk.com/images/HaxePunk.gif"/>
+
+	<img src="http://www.haxeflixel.com/sites/all/themes/haxeflixel_bootstrap/assets/images/haxeflixel-logo.png"/>
+
+	<img src="http://www.openfl.org/packages/theme_slate/themes/slate/images/Banner.png"/>
+
+</div>
+
+<div class="slide">
+	<h1>Papers, Please</h1>
+	
+	<img src="http://square-go.com/wp-content/uploads/2013/06/Papers-Please-Killed-1024x640.jpg"/>
+	
+</div>
+
+<div class="slide">
+	<h1>Motion-Twin</h1>
+
+	<img src="http://twinoid.com/file/535_a188.png"/>
+	<img src="http://twinoid.com/file/440_5e5a.png"/>
+
+</div>
+
+<div class="slide">
+
+	<h1>Evoland</h1>
+	
+	<img src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-ash4/740395_314059598711112_481137429_o.jpg"/>
+
+</div>
+
+<div class="slide">
+
+	<h1>CastleDB</h1>
+	
+	<img src="http://castledb.org/img/screen.png"/>
+
+</div>
+
+<div class="slide">
+	
+	<h1>BritzPetermann</h1>
+	
+	<a href="http://britzpetermann.com/portfolio/schau" target="_blank"><img src="http://www.britzpetermann.com/images/textpattern/335.jpg"/></a>
+	
+</div>
+
+<div class="slide">
+	
+	<h1>En Conclusion</h1>
+	
+	<ul>
+		<li>Vision <em>long-terme</em>
+			<ul>
+				<li>s'adapter aux changements</li>
+				<li>réutiliser le code</li>
+				<li>libre choix de la techno</li>
+				<li>pas de <em>vendor lock-in</em></li>
+			</ul>
+		</li>
+		<li>Utilisations variées
+			<ul>
+				<li>traditionnellement jeux</li>
+				<li>web</li>
+				<li>mobile</li>
+				<li>idéal pour les curieux</li>
+			</ul>
+		</li>
+		<li>Fondation Haxe</li>
+	</ul>
+	
+</div>
+
+<div class="slide title">
+	
+	<h1>Merci</h1>
+	<h1 class="sub"><a href="http://haxe.org">http://haxe.org</a></h1>
+	
+	<p>
+		<a href="https://github.com/ncannasse/hxslides/blob/master/App.hx"><code>github.com/ncannasse/hxslides</code></a>
+	</p>
+	
+</div>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>

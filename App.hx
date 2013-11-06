@@ -97,7 +97,7 @@ class App {
 		var menu = J("<div>").addClass("menu");
 		var ol = J("<ol>");
 		for( i in 0...slides.length ) {
-			var title = slides[i].find("h1").text();
+			var title = slides[i].find("h1").eq(0).text();
 			ol.append(J("<li>").append(J("<a>").attr("href", "#" + i).text(title)));
 		}
 		menu.append(ol);

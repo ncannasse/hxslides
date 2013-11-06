@@ -50,9 +50,21 @@ p {
 	width : 780px;
 	height : 580px;
 }
+.slide img {
+	max-width : 780px;
+}
+.slide>img, .slide>a>img {
+	display : block;
+	margin : auto;
+}
 .slide.title h1 {
 	margin-top : 200px;
+	margin-bottom : 0px;
 	font-size : 80px;
+}
+.slide.title h1.sub {
+	margin-top : 10px;
+	font-size : 40px;
 }
 .slide.title p {
 	text-align : right;
