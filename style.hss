@@ -11,6 +11,49 @@ body {
 	color : #797979;
 }
 
+body.fullScreen {
+	margin : 0px;
+	.menu {
+		display : none;
+	}
+	.slide {
+		margin: 0px auto;
+	}
+}
+
+body.shiro {
+	.slide {
+		background-image : url('../img/slide-bg-shiro.png');
+	}
+}
+
+body.eirb {
+	h1 {
+		.w0:first-letter {
+			color : #CC4444;
+		}
+		.w1:first-letter {
+			color : #44AA44;
+		}
+		.w2:first-letter {
+			color : #4444DD;
+		}
+	}
+	.slide.title h1 {
+			
+		.w0 {
+			-webkit-transform : CSS('rotate(5deg)');
+		}
+		.w1 {
+			-webkit-transform : CSS('rotate(-5deg)');
+		}
+		.w2 {
+			-webkit-transform : CSS('rotate(5deg)');
+		}
+		
+	}
+}
+
 a {
 	color : #515151;
 }
@@ -56,6 +99,23 @@ p {
 	hss-height : 600px;
 	img {
 		max-width : 780px;
+	}
+	h1 {
+		.word {
+			display : inline-block;
+		}
+	}
+}
+
+.slide.bg {
+	background : transparent !important;
+	padding : 0px;
+	img {
+		position : absolute;
+		border-radius : 5px;
+	}
+	h1 {
+		display : none;
 	}
 }
 

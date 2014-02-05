@@ -1,5 +1,5 @@
 (function () { "use strict";
-var App = function() { }
+var App = function() { };
 App.__name__ = true;
 App.main = function() {
 	var kwds = ["abstract","break","case","cast","class","continue","default","do","dynamic","else","enum","extends","extern","for","function","if","implements","import","in","inline","interface","macro","new","override","package","private","public","return","static","switch","throw","try","typedef","untyped","using","var","while"];
@@ -43,23 +43,23 @@ App.main = function() {
 	var clickThrough = window.localStorage.getItem("click") != "false";
 	var $it1 = (function($this) {
 		var $r;
-		var _this = new js.JQuery("pre.byLine");
-		$r = (_this.iterator)();
+		var _this1 = new js.JQuery("pre.byLine");
+		$r = (_this1.iterator)();
 		return $r;
 	}(this));
 	while( $it1.hasNext() ) {
 		var pre = $it1.next();
 		var div = new js.JQuery("<div>").addClass("pre");
-		var _g = 0;
-		var _g1 = pre.html().split("\n");
-		while(_g < _g1.length) {
-			var line = _g1[_g];
-			++_g;
+		var _g2 = 0;
+		var _g11 = pre.html().split("\n");
+		while(_g2 < _g11.length) {
+			var line1 = _g11[_g2];
+			++_g2;
 			var i = 0;
-			while(HxOverrides.cca(line,i) == 32) i++;
-			line = HxOverrides.substr(line,i,null);
-			while(i-- > 0) line = "&nbsp;" + line;
-			new js.JQuery("<div>").addClass("line").html(line).appendTo(div);
+			while(HxOverrides.cca(line1,i) == 32) i++;
+			line1 = HxOverrides.substr(line1,i,null);
+			while(i-- > 0) line1 = "&nbsp;" + line1;
+			new js.JQuery("<div>").addClass("line").html(line1).appendTo(div);
 		}
 		div.insertAfter(pre);
 		pre.remove();
@@ -76,28 +76,28 @@ App.main = function() {
 	if(sub == null) sub = 0;
 	var $it2 = (function($this) {
 		var $r;
-		var _this = new js.JQuery(".slide");
-		$r = (_this.iterator)();
+		var _this2 = new js.JQuery(".slide");
+		$r = (_this2.iterator)();
 		return $r;
 	}(this));
 	while( $it2.hasNext() ) {
-		var s = $it2.next();
-		var p = [s.wrap("<div class='slide-container'>").parent()];
-		s.prepend(new js.JQuery("<div>").addClass("slide-bg"));
+		var s1 = $it2.next();
+		var p = [s1.wrap("<div class='slide-container'>").parent()];
+		s1.prepend(new js.JQuery("<div>").addClass("slide-bg"));
 		var id = [slides.length];
-		var parts = [s.find("li,pre,h2,p,div.pre .line,.click").filter(clickThrough?"*":"empty")];
+		var parts = [s1.find("li,pre,h2,p,div.pre .line,.click").filter(clickThrough?"*":"empty")];
 		parts[0] = parts[0].not(".visible");
 		parts[0].hide();
 		if(id[0] == cur) {
-			var _g = 0;
-			while(_g < sub) {
-				var i = _g++;
-				new js.JQuery(parts[0][i]).show().parent().show();
+			var _g3 = 0;
+			while(_g3 < sub) {
+				var i1 = _g3++;
+				new js.JQuery(parts[0][i1]).show().parent().show();
 			}
 		}
 		slides.push(p[0]);
 		p[0].hide();
-		s.click((function(parts,id,p) {
+		s1.click((function(parts,id,p) {
 			return function(e) {
 				if(sub < parts[0].length) {
 					new js.JQuery(parts[0][sub]).show().parent().show();
@@ -117,20 +117,57 @@ App.main = function() {
 	}
 	var menu = new js.JQuery("<div>").addClass("menu");
 	var ol = new js.JQuery("<ol>");
-	var _g1 = 0;
-	var _g = slides.length;
-	while(_g1 < _g) {
-		var i = _g1++;
-		var title = slides[i].find("h1").eq(0).text();
-		ol.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i).text(title)));
+	var _g12 = 0;
+	var _g4 = slides.length;
+	while(_g12 < _g4) {
+		var i2 = _g12++;
+		var title = slides[i2].find("h1").eq(0).text();
+		ol.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i2).text(title)));
 	}
 	menu.append(ol);
-	menu.append(new js.JQuery("<a>").text("Present mode : " + Std.string(clickThrough)).click(function() {
+	menu.append(new js.JQuery("<a>").text("Present mode : " + ("" + clickThrough)).click(function() {
 		clickThrough = !clickThrough;
-		window.localStorage.setItem("click","" + Std.string(clickThrough));
+		window.localStorage.setItem("click","" + ("" + clickThrough));
 		window.location.reload();
 	}));
-	new js.JQuery("body").append(menu);
+	menu.append("<br>");
+	var body = new js.JQuery("body");
+	var onResize = function() {
+		new js.JQuery(".slide").css({ '-webkit-transform' : "scale(1)", '-webkit-transform-origin' : "center top"});
+		var j;
+		var html1 = window.document;
+		j = new js.JQuery(html1);
+		var s2 = Math.min(j.width() / 800,j.height() / 600);
+		new js.JQuery("body.fullScreen .slide").css({ '-webkit-transform' : "scale(" + s2 + ")"});
+	};
+	menu.append(new js.JQuery("<a>").text("Full Screen").click(function() {
+		body.toggleClass("fullScreen");
+		onResize();
+	}));
+	body.append(menu).keydown(function(e1) {
+		if(e1.keyCode == 27) {
+			body.removeClass("fullScreen");
+			onResize();
+		}
+	});
+	window.onresize = function(_) {
+		onResize();
+	};
+	var $it3 = (function($this) {
+		var $r;
+		var _this3 = new js.JQuery("h1");
+		$r = (_this3.iterator)();
+		return $r;
+	}(this));
+	while( $it3.hasNext() ) {
+		var h = $it3.next();
+		var count = [0];
+		h.html(new EReg("(@|[^ ]+)","g").map(h.text(),(function(count) {
+			return function(r1) {
+				return "<div class='word w" + count[0]++ + "'>" + r1.matched(0) + "</div>";
+			};
+		})(count)));
+	}
 	slides[cur].show();
 	var t1 = new haxe.Timer(100);
 	t1.run = function() {
@@ -139,7 +176,7 @@ App.main = function() {
 			t1.stop();
 		}
 	};
-}
+};
 var EReg = function(r,opt) {
 	opt = opt.split("u").join("");
 	this.r = new RegExp(r,opt);
@@ -155,17 +192,64 @@ EReg.prototype = {
 	,matched: function(n) {
 		if(this.r.m != null && n >= 0 && n < this.r.m.length) return this.r.m[n]; else throw "EReg::matched";
 	}
+	,matchedPos: function() {
+		if(this.r.m == null) throw "No string matched";
+		return { pos : this.r.m.index, len : this.r.m[0].length};
+	}
+	,matchSub: function(s,pos,len) {
+		if(len == null) len = -1;
+		if(this.r.global) {
+			this.r.lastIndex = pos;
+			this.r.m = this.r.exec(len < 0?s:HxOverrides.substr(s,0,pos + len));
+			var b = this.r.m != null;
+			if(b) this.r.s = s;
+			return b;
+		} else {
+			var b1 = this.match(len < 0?HxOverrides.substr(s,pos,null):HxOverrides.substr(s,pos,len));
+			if(b1) {
+				this.r.s = s;
+				this.r.m.index += pos;
+			}
+			return b1;
+		}
+	}
 	,replace: function(s,by) {
 		return s.replace(this.r,by);
 	}
-}
-var HxOverrides = function() { }
+	,map: function(s,f) {
+		var offset = 0;
+		var buf = new StringBuf();
+		do {
+			if(offset >= s.length) break; else if(!this.matchSub(s,offset)) {
+				var x = HxOverrides.substr(s,offset,null);
+				buf.b += Std.string(x);
+				break;
+			}
+			var p = this.matchedPos();
+			var x1 = HxOverrides.substr(s,offset,p.pos - offset);
+			buf.b += Std.string(x1);
+			var x2 = f(this);
+			buf.b += Std.string(x2);
+			if(p.len == 0) {
+				var x3 = HxOverrides.substr(s,p.pos,1);
+				buf.b += Std.string(x3);
+				offset = p.pos + 1;
+			} else offset = p.pos + p.len;
+		} while(this.r.global);
+		if(!this.r.global && offset > 0 && offset < s.length) {
+			var x4 = HxOverrides.substr(s,offset,null);
+			buf.b += Std.string(x4);
+		}
+		return buf.b;
+	}
+};
+var HxOverrides = function() { };
 HxOverrides.__name__ = true;
 HxOverrides.cca = function(s,index) {
 	var x = s.charCodeAt(index);
 	if(x != x) return undefined;
 	return x;
-}
+};
 HxOverrides.substr = function(s,pos,len) {
 	if(pos != null && pos != 0 && len != null && len < 0) return "";
 	if(len == null) len = s.length;
@@ -174,40 +258,45 @@ HxOverrides.substr = function(s,pos,len) {
 		if(pos < 0) pos = 0;
 	} else if(len < 0) len = s.length + len - pos;
 	return s.substr(pos,len);
-}
-var Std = function() { }
+};
+Math.__name__ = true;
+var Std = function() { };
 Std.__name__ = true;
 Std.string = function(s) {
 	return js.Boot.__string_rec(s,"");
-}
+};
 Std.parseInt = function(x) {
 	var v = parseInt(x,10);
 	if(v == 0 && (HxOverrides.cca(x,1) == 120 || HxOverrides.cca(x,1) == 88)) v = parseInt(x);
 	if(isNaN(v)) return null;
 	return v;
-}
-var StringTools = function() { }
+};
+var StringBuf = function() {
+	this.b = "";
+};
+StringBuf.__name__ = true;
+var StringTools = function() { };
 StringTools.__name__ = true;
 StringTools.isSpace = function(s,pos) {
 	var c = HxOverrides.cca(s,pos);
 	return c > 8 && c < 14 || c == 32;
-}
+};
 StringTools.ltrim = function(s) {
 	var l = s.length;
 	var r = 0;
 	while(r < l && StringTools.isSpace(s,r)) r++;
 	if(r > 0) return HxOverrides.substr(s,r,l - r); else return s;
-}
+};
 StringTools.rtrim = function(s) {
 	var l = s.length;
 	var r = 0;
 	while(r < l && StringTools.isSpace(s,l - r - 1)) r++;
 	if(r > 0) return HxOverrides.substr(s,0,l - r); else return s;
-}
+};
 StringTools.trim = function(s) {
 	return StringTools.ltrim(StringTools.rtrim(s));
-}
-var haxe = {}
+};
+var haxe = {};
 haxe.Timer = function(time_ms) {
 	var me = this;
 	this.id = setInterval(function() {
@@ -223,9 +312,9 @@ haxe.Timer.prototype = {
 	}
 	,run: function() {
 	}
-}
-var js = {}
-js.Boot = function() { }
+};
+var js = {};
+js.Boot = function() { };
 js.Boot.__name__ = true;
 js.Boot.__string_rec = function(o,s) {
 	if(o == null) return "null";
@@ -248,16 +337,16 @@ js.Boot.__string_rec = function(o,s) {
 				return str + ")";
 			}
 			var l = o.length;
-			var i;
-			var str = "[";
+			var i1;
+			var str1 = "[";
 			s += "\t";
-			var _g = 0;
-			while(_g < l) {
-				var i1 = _g++;
-				str += (i1 > 0?",":"") + js.Boot.__string_rec(o[i1],s);
+			var _g2 = 0;
+			while(_g2 < l) {
+				var i2 = _g2++;
+				str1 += (i2 > 0?",":"") + js.Boot.__string_rec(o[i2],s);
 			}
-			str += "]";
-			return str;
+			str1 += "]";
+			return str1;
 		}
 		var tostr;
 		try {
@@ -270,22 +359,22 @@ js.Boot.__string_rec = function(o,s) {
 			if(s2 != "[object Object]") return s2;
 		}
 		var k = null;
-		var str = "{\n";
+		var str2 = "{\n";
 		s += "\t";
 		var hasp = o.hasOwnProperty != null;
-		for( var k in o ) { ;
+		for( var k in o ) {
 		if(hasp && !o.hasOwnProperty(k)) {
 			continue;
 		}
 		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
 			continue;
 		}
-		if(str.length != 2) str += ", \n";
-		str += s + k + " : " + js.Boot.__string_rec(o[k],s);
+		if(str2.length != 2) str2 += ", \n";
+		str2 += s + k + " : " + js.Boot.__string_rec(o[k],s);
 		}
 		s = s.substring(1);
-		str += "\n" + s + "}";
-		return str;
+		str2 += "\n" + s + "}";
+		return str2;
 	case "function":
 		return "<function>";
 	case "string":
@@ -293,7 +382,16 @@ js.Boot.__string_rec = function(o,s) {
 	default:
 		return String(o);
 	}
-}
+};
+Math.NaN = Number.NaN;
+Math.NEGATIVE_INFINITY = Number.NEGATIVE_INFINITY;
+Math.POSITIVE_INFINITY = Number.POSITIVE_INFINITY;
+Math.isFinite = function(i) {
+	return isFinite(i);
+};
+Math.isNaN = function(i1) {
+	return isNaN(i1);
+};
 String.__name__ = true;
 Array.__name__ = true;
 var q = window.jQuery;

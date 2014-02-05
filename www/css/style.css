@@ -8,6 +8,36 @@ body {
 	font-weight : normal;
 	color : #797979;
 }
+body.fullScreen {
+	margin : 0px;
+}
+body.fullScreen .menu {
+	display : none;
+}
+body.fullScreen .slide {
+	margin : 0px auto;
+}
+body.shiro .slide {
+	background-image : url("../img/slide-bg-shiro.png");
+}
+body.eirb h1 .w0:first-letter {
+	color : #CC4444;
+}
+body.eirb h1 .w1:first-letter {
+	color : #44AA44;
+}
+body.eirb h1 .w2:first-letter {
+	color : #4444DD;
+}
+body.eirb .slide.title h1 .w0 {
+	-webkit-transform : rotate(5deg);
+}
+body.eirb .slide.title h1 .w1 {
+	-webkit-transform : rotate(-5deg);
+}
+body.eirb .slide.title h1 .w2 {
+	-webkit-transform : rotate(5deg);
+}
 a {
 	color : #515151;
 }
@@ -52,6 +82,24 @@ p {
 }
 .slide img {
 	max-width : 780px;
+}
+.slide h1 .word {
+	display : inline-block;
+	zoom : 1;
+	*display : inline;
+}
+.slide.bg {
+	background : transparent !important;
+	padding : 0px;
+}
+.slide.bg img {
+	position : absolute;
+	border-radius : 5px;
+	-moz-border-radius : 5px;
+	-webkit-border-radius : 5px;
+}
+.slide.bg h1 {
+	display : none;
 }
 .slide>img, .slide>a>img {
 	display : block;

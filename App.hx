@@ -106,7 +106,33 @@ class App {
 			js.Browser.window.localStorage.setItem("click", "" + clickThrough);
 			js.Browser.location.reload();
 		}));
-		J("body").append(menu);
+		menu.append("<br>");
+
+		var body = J("body");
+		
+		function onResize() {
+			J(".slide").css( { "-webkit-transform" : "scale(1)", "-webkit-transform-origin" : "center top" } );
+			var j = J(cast js.Browser.document);
+			var s = Math.min(j.width() / 800, j.height() / 600);
+			J("body.fullScreen .slide").css( { "-webkit-transform" : "scale("+s+")" } );
+		}
+
+		menu.append(J("<a>").text("Full Screen").click(function() {
+			body.toggleClass("fullScreen");
+			onResize();
+		}));
+		body.append(menu).keydown(function(e) {
+			if( e.keyCode == 27 ) {
+				body.removeClass("fullScreen");
+				onResize();
+			}
+		});
+		js.Browser.window.onresize = function(_) onResize();
+		
+		for( h in J("h1") ) {
+			var count = 0;
+			h.html(~/(@|[^ ]+)/g.map(h.text(), function(r) return "<div class='word w"+(count++)+"'>"+r.matched(0)+"</div>"));
+		}
 		
 		slides[cur].show();
 		var t = new haxe.Timer(100);
