@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body class="black">
+
+<div class="slide title">
+	<h1>One year of Haxe</h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>WWX 2014</i>
+	</p>
+
+</div>
+
+<div class="slide">
+	<h1>One Year Of Haxe</h1>
+
+	<ul>
+		<li>WWX 2013:
+			<ul>
+				<li>3.0 release</li>
+				<li>Moved to github</li>
+				<li>First Haxe Foundation partners</li>
+			</ul>
+		</li>
+		<li>
+			And then:
+			<ul>
+				<li>~2300 commits later...</li>
+				<li>3.1.0 in March</li>
+				<li>Followed by 3.1.1</li>
+				<li>and 3.1.2...</li>
+				<li>and 3.1.3 (;_;)</li>
+				</li>
+				<li>Now working on 3.2 !</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>3.<span class="w1">1</span>.x</h1>
+	
+	<ul>
+		<li>An update to 3.0 (no breaking change)</li>
+		<li>Improves recent 3.0 features (pattern matching, abstracts)</li>
+		<li>A bit of additional syntax</li>
+		<li>Complete standard library</li>
+		<li>various fixes and optimizations</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Pattern matching</h1>
+	
+	<ul>
+		<li>Extractors:</li>
+	</ul>
+	
+	<pre>
+	switch( stringValue ) {
+	case _.toLowerCase() => "foo": ...
+	case nospace(_) => x if( x != "" ): x;
+	}
+	
+	function nospace(x:String) {
+		return ~/[ \t\r\n]+/g.replace(x,"");
+	}
+	</pre>
+	
+	<ul>
+		<li>Allow to match <code>null</code> value</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Abstract enums</h1>
+
+	<pre>
+	@:enum abstract A(String) {
+		var X = "X";
+		var Y = "Y";
+		var Z = "Z";
+	}
+	</pre>
+	
+	<ul>
+	<li>Behave like an enum (type wise).</li>
+	<li>Only a set of runtime values.</li>
+	<li>No Enum reflection, no parameters</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>New Syntax</h1>
+
+	<pre>
+	var f = (expression : Type);
+	</pre>
+	
+	<pre>
+	// example
+	Reflect.setField(obj,"name",(foo() : String));
+	</pre>
+	
+	
+	<ul>
+	<li>Ensures that the expression is of the given type.</li>
+	<li><code>ECheckType</code> in macros.</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>EnumValue<span class="w1">.match</span></h1>
+
+	<pre>
+	myEnum.match(pattern)
+	</pre>
+	
+	<pre>
+	// example
+	if( macroExpr.match({ expr : EConst(CIdent(_)) }) ) ...
+	</pre>
+	
+	<ul>
+	<li>shorter version of the switch for quick check.</li>
+	<li>can't capture values.</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Std.<span class="w1">instance</span></h1>
+
+	<pre>
+	function instance&lt;T:{},S:T&gt;( value : T, c : Class&lt;S&gt; ) : S;
+	</pre>
+	
+	<pre>
+	// example
+	class A {}
+	class B extends A {}
+	class C {}
+	...
+	var a : A = new B();
+	Std.instance(a,B); // ok
+	Std.instance(a,C); // error
+	</pre>
+	
+	<ul>
+	<li>optimized (no basic type support).</li>
+	<li>to use for quick "downcast".</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Compiler Cache Memory</h1>
+		
+	<ul>
+	<li>Report <em>"Compiler caches takes too much memory"</em></li>
+	<li>Add <code>--display memory</code> to dump cache size and module references</li>
+	<li>Notice (and fix) various module leaks (pointer kept to old version of modules)</li>
+	<li>Report <em>"One single module takes 2 GB of memory"</em> (oops!)</li>
+	<li>A LOT of <code>MyEnum.Value</code> accesses</li>
+	<li>Fixed it ! 200x memory reduction of this module</li>
+	<li>Also speed up compilation !</li>
+	</ul>
+	
+</div>
+
+<div class="slide title">
+	<h1>Haxe 3.2 plans</h1>
+</div>
+
+<div class="slide">
+	<h1>Bytes API</h1>
+	
+	<ul>
+	<li>Goal of std : makes things easy, at low performance cost</li>
+	<li>haxe.io.Bytes complete API : Int/UInt/8/16/24/32 accessors</li>
+	<li>JS Typed Arrays API (slice view of underlying Bytes)</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Unicode Support</h1>
+	
+	<ul>
+	<li>Haxe Strings are "array of chars"</li>
+	<li>The definition of char is per-platform atm...
+		<ul>
+		<li>C++/Neko : uint8 (ISO/ANSI/etc.)</li>
+		<li>JS/Flash : uint16 (UCS2)</li>
+		<li>Java : either UCS2 or UTF16 (JVM dependent)</li>
+		<li>C# : UTF16</li>
+		</ul>
+	</li>
+	<li>...it starts to be complicated</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>What is a String?</h1>
+	
+	<ul>
+	<li>At low level : a memory zone full of bytes</li>
+	<li>The encoding is implicit !</li>
+	<li>Storage of chars differ depending of encoding.</li>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>Various Encodings</h1>
+	
+	<table class="click">
+	<tr>
+	<th>&nbsp;</th>
+	<th>Char range</th>
+	<th>Bytes/char</th>
+	<th>Access</th>
+	</tr>
+	<tr>
+	<th>ANSI</th>
+	<td>0x00-0x7F</td>
+	<td>1</td>
+	<td>O(1)</td>
+	</tr>
+	<tr class="click">
+	<th>ISO</th>
+	<td>0x00-0xFF</td>
+	<td>1</td>
+	<td>O(1)</td>
+	</tr>
+	<tr class="click">
+	<th>UCS2</th>
+	<td>0x00-0xFFFF</td>
+	<td>2</td>
+	<td>O(1)</td>
+	</tr>
+	<tr class="click">
+	<th>UTF8</th>
+	<td>0x00-0x7FFFFFFF</td>
+	<td>1-6</td>
+	<td>O(n)</td>
+	</tr>
+	<tr class="click">
+	<th>UTF16</th>
+	<td>0x00-0xD7FF<br/> + 0xE000-0x10FFFF</td>
+	<td>2 (+2)</td>
+	<td>O(n)*</td>
+	</tr>
+	</table>
+	<p>
+	(*) : unless we ignore surrogate pairs
+	</p>
+	<p>
+		UTF8 for file storage / HTML (superset of ANSI)
+	</p>
+
+</div>
+
+<div class="slide">
+	
+	<h1>UTF-16 in details</h1>
+	
+	<ul>
+	<li>0x00 - 0xD7FF : same as UCS2</li>
+	<li>0xE000 - 0xFFFF : same as UCS2</li>
+	<li>0x10000 - 0x10FFFF : surrogate pairs
+		<ul>
+			<li>two 0xDXXXX chars</li>
+		</ul>
+	</li>
+	<li>0xD800 - 0xDFFF : invalid code points
+		<ul>
+			<li>can still be produced by other encodings!</li>
+		</ul>
+	</li>
+	<li>
+		Still with us?
+	</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+
+	<h1>What to do?</h1>
+	
+	<ul>
+	<li>provide haxe.Ucs2/Utf8/Utf16
+		<ul>
+		<li>+ conversion functions</li>
+		</ul>
+	</li>
+	<li>ensure cross-platform conformity</li>
+	<li>check performances</li>
+	<li>most likely switch to UCS2 as default (3.4 ? 4.0 ?)</li>
+	<li>tell us if you have better idea!</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+
+	<h1>A few other things</h1>
+	
+	<ul>
+	<li>Allow <code>@:build</code> in macros.</li>
+	<li>Move SPOD out of <code>haxe.db</code> (more on that later)</li>
+	<li>Disable NekoVM bridge (better support for EReg/haxe.io.Process in macros)</li>
+	<li>Global Optimization pass</li>
+	</ul>
+	
+	<h2>Python target</h2>
+	
+</div>
+
+<div class="slide title">
+
+	<h1>Haxe Foundation</h1>
+	
+</div>
+
+<div class="slide">
+
+	<h1>Who<span class="w1">?</span></h1>
+	
+	<ul>
+	<li>Simon Krajewski</li>
+	<li>Jason O'Neil</li>
+	<li>the compiler team (Hugh, Cauê, Bruno, Franco, Heinz)</li>
+	<li>/me</li>
+	<li>all other contributors (Dan Korostelev, Andy Li, etc.)</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>What<span class="w1">?</span></h1>
+		
+	<ul>
+	<li>maintain haxe compiler</li>
+	<li>and standard library</li>
+	<li>and haxelib</li>
+	</ul>
+	
+	<img class="click" src="img/haxeCommits.png"/>
+
+</div>
+
+<div class="slide">
+
+	<h1>What<span class="w1">?</span></h1>
+
+	<ul>
+	<li>a LOT of unit tests for cross platform</li>
+	<li>handling ~100 issues per month</li>
+	<li>support for HF partners</li>
+	<li>make sure things get resolved (OpenFL/NME)</li>
+	<li>provides documentation... <em>(ehm)</em></li>
+	</ul>	
+
+</div>
+
+<div class="slide title">
+
+	<h1><span class="w1">http://</span>haxe.org</h1>
+</div>
+
+<div class="slide">
+
+	<h1>New haxe.org</h1>
+	
+	<ul>
+	<li>Haxe : <em>the cross platform toolkit</em></li>
+	<li>Haxe Manual
+		<ul>
+		<li>complete language reference
+		<li>advanced technical information
+		<li>more to come:
+			<ul>
+			<li>how to write cross platform code
+			<li>native interaction with the platform
+			<li>etc.
+			</ul>
+		</ul>
+	</li>
+	<li>Use Cases
+		<ul>
+		<li>Games, Web, Mobile, Commandline, Cross platform, etc.</li>
+		<li>links to popular libs/tools</li>
+		<li>success stories</li>
+		</ul>
+	</li>
+	<li>Contribute!</li>
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Other HF Activities</h1>
+	
+	<ul>
+	<li>Sponsoring
+		<ul>
+		<li>HIDE
+		<li>New Haxelib website
+		<li>UFront
+		<li>WWX
+		<li>anything that helps Haxe!
+		</ul>
+	<li>Organize / Promote
+		<ul>
+		<li>User groups
+		<li>Services
+		<li>Jobs
+		<li>Success stories
+		</ul>
+	<li>Something else?
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Thank you!</h1>
+
+	<h2>
+		And don't forget...
+	</h2>
+	
+	<p style="text-align:center">
+		<img src="img/wwx-macro.jpg"/>
+	</p>
+	
+	
+	<p style="font-size:70%">
+		Done with <code>http://github.com/ncannasse/hxslides</code>
+	</p>
+	
+</div>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+
+</body>
+</html>
