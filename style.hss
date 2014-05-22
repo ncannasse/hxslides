@@ -12,6 +12,7 @@ body {
 }
 
 body.fullScreen {
+	overflow : hidden;
 	margin : 0px;
 	.menu {
 		display : none;
@@ -105,6 +106,24 @@ p {
 			display : inline-block;
 		}
 	}
+	table {
+		margin : 5px auto;
+		border : 1px solid black;
+		border-collapse : collapse;
+		tr {
+			border-bottom : 1px solid #AAA;
+		}
+		th, td {
+			padding : 3px 10px;
+			border-left : 1px solid #DDD;
+		}
+		th {
+			text-align : center;
+			background-color : #333;
+			color : white;
+			border-left : 1px solid black;
+		}
+	}
 }
 
 .slide.bg {
@@ -190,5 +209,32 @@ pre, div.pre {
 	}
 	.cmt {
 		color : #080;
+	}
+}
+
+body.black {
+	.slide {
+		border : 1px solid #f48821;
+		border-radius : 0px;
+		background : rgb(20,20,25);
+		color : white;
+	}
+
+	.slide ul li {
+		list-style : url('../img/hxico.png');
+		padding-left : 5px;
+		ul li  {
+			list-style : disc;
+			li {
+				list-style : circle;
+			}
+		}
+	}
+
+	h1 {
+		color : white;
+		.w1, .w3, .w5 {
+			color : #f48821;
+		}
 	}
 }

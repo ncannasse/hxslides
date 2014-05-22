@@ -131,6 +131,7 @@ class App {
 		
 		for( h in J("h1") ) {
 			var count = 0;
+			if( h.text().indexOf(" ") < 0 ) continue;
 			h.html(~/(@|[^ ]+)/g.map(h.text(), function(r) return "<div class='word w"+(count++)+"'>"+r.matched(0)+"</div>"));
 		}
 		

@@ -9,6 +9,7 @@ body {
 	color : #797979;
 }
 body.fullScreen {
+	overflow : hidden;
 	margin : 0px;
 }
 body.fullScreen .menu {
@@ -88,6 +89,24 @@ p {
 	zoom : 1;
 	*display : inline;
 }
+.slide table {
+	margin : 5px auto;
+	border : 1px solid black;
+	border-collapse : collapse;
+}
+.slide table tr {
+	border-bottom : 1px solid #AAA;
+}
+.slide table th, .slide table td {
+	padding : 3px 10px;
+	border-left : 1px solid #DDD;
+}
+.slide table th {
+	text-align : center;
+	background-color : #333;
+	color : white;
+	border-left : 1px solid black;
+}
 .slide.bg {
 	background : transparent !important;
 	padding : 0px;
@@ -164,4 +183,28 @@ pre .str, div.pre .str {
 }
 pre .cmt, div.pre .cmt {
 	color : #080;
+}
+body.black .slide {
+	border : 1px solid #f48821;
+	border-radius : 0px;
+	-moz-border-radius : 0px;
+	-webkit-border-radius : 0px;
+	background : rgb(20,20,25);
+	color : white;
+}
+body.black .slide ul li {
+	list-style : url("../img/hxico.png");
+	padding-left : 5px;
+}
+body.black .slide ul li ul li {
+	list-style : disc;
+}
+body.black .slide ul li ul li li {
+	list-style : circle;
+}
+body.black h1 {
+	color : white;
+}
+body.black h1 .w1, body.black h1 .w3, body.black h1 .w5 {
+	color : #f48821;
 }

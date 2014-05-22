@@ -125,9 +125,9 @@ App.main = function() {
 		ol.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i2).text(title)));
 	}
 	menu.append(ol);
-	menu.append(new js.JQuery("<a>").text("Present mode : " + ("" + clickThrough)).click(function() {
+	menu.append(new js.JQuery("<a>").text("Present mode : " + (clickThrough == null?"null":"" + clickThrough)).click(function() {
 		clickThrough = !clickThrough;
-		window.localStorage.setItem("click","" + ("" + clickThrough));
+		window.localStorage.setItem("click","" + (clickThrough == null?"null":"" + clickThrough));
 		window.location.reload();
 	}));
 	menu.append("<br>");
@@ -162,6 +162,7 @@ App.main = function() {
 	while( $it3.hasNext() ) {
 		var h = $it3.next();
 		var count = [0];
+		if(h.text().indexOf(" ") < 0) continue;
 		h.html(new EReg("(@|[^ ]+)","g").map(h.text(),(function(count) {
 			return function(r1) {
 				return "<div class='word w" + count[0]++ + "'>" + r1.matched(0) + "</div>";
@@ -221,25 +222,18 @@ EReg.prototype = {
 		var buf = new StringBuf();
 		do {
 			if(offset >= s.length) break; else if(!this.matchSub(s,offset)) {
-				var x = HxOverrides.substr(s,offset,null);
-				buf.b += Std.string(x);
+				buf.add(HxOverrides.substr(s,offset,null));
 				break;
 			}
 			var p = this.matchedPos();
-			var x1 = HxOverrides.substr(s,offset,p.pos - offset);
-			buf.b += Std.string(x1);
-			var x2 = f(this);
-			buf.b += Std.string(x2);
+			buf.add(HxOverrides.substr(s,offset,p.pos - offset));
+			buf.add(f(this));
 			if(p.len == 0) {
-				var x3 = HxOverrides.substr(s,p.pos,1);
-				buf.b += Std.string(x3);
+				buf.add(HxOverrides.substr(s,p.pos,1));
 				offset = p.pos + 1;
 			} else offset = p.pos + p.len;
 		} while(this.r.global);
-		if(!this.r.global && offset > 0 && offset < s.length) {
-			var x4 = HxOverrides.substr(s,offset,null);
-			buf.b += Std.string(x4);
-		}
+		if(!this.r.global && offset > 0 && offset < s.length) buf.add(HxOverrides.substr(s,offset,null));
 		return buf.b;
 	}
 };
@@ -275,6 +269,11 @@ var StringBuf = function() {
 	this.b = "";
 };
 StringBuf.__name__ = true;
+StringBuf.prototype = {
+	add: function(x) {
+		this.b += Std.string(x);
+	}
+};
 var StringTools = function() { };
 StringTools.__name__ = true;
 StringTools.isSpace = function(s,pos) {
@@ -382,15 +381,6 @@ js.Boot.__string_rec = function(o,s) {
 	default:
 		return String(o);
 	}
-};
-Math.NaN = Number.NaN;
-Math.NEGATIVE_INFINITY = Number.NEGATIVE_INFINITY;
-Math.POSITIVE_INFINITY = Number.POSITIVE_INFINITY;
-Math.isFinite = function(i) {
-	return isFinite(i);
-};
-Math.isNaN = function(i1) {
-	return isNaN(i1);
 };
 String.__name__ = true;
 Array.__name__ = true;
