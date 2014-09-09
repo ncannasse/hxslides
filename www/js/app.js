@@ -31,6 +31,8 @@ App.main = function() {
 		html = new EReg("^" + Std.string(tabs),"gm").replace(html,"");
 		html = StringTools.trim(html);
 		html = new EReg("('[^']*')","g").replace(html,"<span __xlass='str'>$1</span>");
+		html = new EReg("((#if [a-zA-Z0-9_]+)|(#end)|(#elseif [a-zA-Z0-9_]+))","g").replace(html,"<span __xlass='cond'>$1</span>");
+		html = new EReg("(#else)","g").replace(html,"<span __xlass='cond'>$1</span>");
 		html = kwds1.replace(html,"<span class='kwd'>$1</span>");
 		html = vals1.replace(html,"<span class='val'>$1</span>");
 		html = html.split("__xlass").join("class");
@@ -85,7 +87,7 @@ App.main = function() {
 		var p = [s1.wrap("<div class='slide-container'>").parent()];
 		s1.prepend(new js.JQuery("<div>").addClass("slide-bg"));
 		var id = [slides.length];
-		var parts = [s1.find("li,pre,h2,p,div.pre .line,.click").filter(clickThrough?"*":"empty")];
+		var parts = [s1.find("li,pre,h2,p,div.pre .line,.click").not("li > pre:first-child").filter(clickThrough?"*":"empty")];
 		parts[0] = parts[0].not(".visible");
 		parts[0].hide();
 		if(id[0] == cur) {
@@ -100,7 +102,16 @@ App.main = function() {
 		s1.click((function(parts,id,p) {
 			return function(e) {
 				if(sub < parts[0].length) {
-					new js.JQuery(parts[0][sub]).show().parent().show();
+					var p1 = new js.JQuery(parts[0][sub]);
+					p1.show().parent().show();
+					if(p1.hasClass("hidePrev")) new js.JQuery(parts[0][sub - 1]).hide();
+					if(p1.hasClass("highlight")) {
+						var $it3 = (parts[0].iterator)();
+						while( $it3.hasNext() ) {
+							var p2 = $it3.next();
+							p2.toggleClass("light",p1[0] == p2[0]).toggleClass("unlight",p1[0] != p2[0]);
+						}
+					}
 					sub++;
 				} else {
 					var tid = id[0] + 1;
@@ -153,14 +164,14 @@ App.main = function() {
 	window.onresize = function(_) {
 		onResize();
 	};
-	var $it3 = (function($this) {
+	var $it4 = (function($this) {
 		var $r;
 		var _this3 = new js.JQuery("h1");
 		$r = (_this3.iterator)();
 		return $r;
 	}(this));
-	while( $it3.hasNext() ) {
-		var h = $it3.next();
+	while( $it4.hasNext() ) {
+		var h = $it4.next();
 		var count = [0];
 		if(h.text().indexOf(" ") < 0) continue;
 		h.html(new EReg("(@|[^ ]+)","g").map(h.text(),(function(count) {
@@ -385,6 +396,7 @@ js.Boot.__string_rec = function(o,s) {
 String.__name__ = true;
 Array.__name__ = true;
 var q = window.jQuery;
+var js = js || {}
 js.JQuery = q;
 q.fn.iterator = function() {
 	return { pos : 0, j : this, hasNext : function() {

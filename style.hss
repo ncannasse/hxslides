@@ -41,7 +41,7 @@ body.eirb {
 		}
 	}
 	.slide.title h1 {
-			
+
 		.w0 {
 			-webkit-transform : CSS('rotate(5deg)');
 		}
@@ -51,7 +51,7 @@ body.eirb {
 		.w2 {
 			-webkit-transform : CSS('rotate(5deg)');
 		}
-		
+
 	}
 }
 
@@ -68,11 +68,11 @@ p {
 	z-index : 2;
 	font-size : 10px;
 	margin-left : 30px;
-	
+
 	ol {
 		padding : 0px;
 	}
-	
+
 	a {
 		cursor : pointer;
 		color : #666;
@@ -81,7 +81,7 @@ p {
 	a:hover {
 		color : #aaa;
 	}
-	
+
 	li {
 		margin : 0px;
 		padding : 0px;
@@ -198,17 +198,21 @@ pre, div.pre {
 	margin : 15px;
 	padding : 5px;
 	border-left : 20px solid #bbb;
-	.kwd {
-		color : #008;
-	}
 	.val {
-		color : #448;
+		color : #448 !important;
 	}
-	.str {
-		color : #800;
+	.str, .str .kwd, .str .val {
+		color : #800 !important;
 	}
-	.cmt {
-		color : #080;
+	.cmt, .cmt .kwd, .cmt .val {
+		color : #080 !important;
+	}
+	.cond, .cond .kwd, .cond .val {
+		font-weight : bold;
+		color : #080 !important;
+	}
+	.kwd {
+		color : #008 !important;
 	}
 }
 
@@ -235,6 +239,82 @@ body.black {
 		color : white;
 		.w1, .w3, .w5 {
 			color : #f48821;
+		}
+	}
+}
+
+body.black.v2 {
+
+	.slide {
+		color : #f0f0f0;
+		border : none;
+		background-color: rgb(16,16,20);
+		background-image : url('../img/haxeslide.png');
+		background-repeat : no-repeat;
+
+		ul {
+			font-size : 40px;
+			padding-left : 0px;
+			li {
+				text-align : center;
+				list-style : none;
+				padding-left : 0px;
+				span {
+					color : #f48821;
+				}
+				code {
+					color : #B3A9A9;
+					a {
+						background-color : #444;
+						color : #eee;
+						padding : 1px 2px;
+					}
+				}
+				pre {
+					text-align : left;
+				}
+			}
+
+			li.list, p.list {
+				font-size : 30px;
+				font-style : italic;
+			}
+		}
+
+		ul.packed li {
+			margin-bottom : 5px;
+		}
+
+		li.unlight {
+			opacity : 0.5;
+		}
+
+		h1 {
+			color: #101019;
+			background-color : rgba(255,255,255,0.9);
+			letter-spacing : 1px;
+		}
+	}
+
+	.slide.title {
+
+		background-image : url('../img/haxetitle.png');
+
+		h1 {
+			background : none;
+			color: #e3e3e3;
+			font-family: 'Impact';
+			font-weight : normal;
+			font-size : 180px;
+			letter-spacing : 10px;
+			span {
+				color : #f48821;
+			}
+			padding-right : 20px;
+		}
+		p {
+			bottom : 20px;
+			color : #141419;
 		}
 	}
 }

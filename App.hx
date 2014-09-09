@@ -11,7 +11,7 @@ class App {
 
 		for( s in J("pre") ) {
 			var html = s.html();
-			
+
 			// detect and remove identation
 			var tabs = null;
 			for( line in html.split("\n") )
@@ -25,18 +25,20 @@ class App {
 			html = StringTools.trim(html);
 
 			html = ~/('[^']*')/g.replace(html, "<span __xlass='str'>$1</span>");
+			html = ~/((#if [a-zA-Z0-9_]+)|(#end)|(#elseif [a-zA-Z0-9_]+))/g.replace(html, "<span __xlass='cond'>$1</span>");
+			html = ~/(#else)/g.replace(html, "<span __xlass='cond'>$1</span>");
 			html = kwds.replace(html, "<span class='kwd'>$1</span>");
 			html = vals.replace(html, "<span class='val'>$1</span>");
-			
+
 			html = html.split('__xlass').join("class");
-			
+
 			html = ~/("[^"]*")/g.replace(html, "<span class='str'>$1</span>");
 			html = ~/(\/\/[^\n]*)/g.replace(html, "<span class='cmt'>$1</span>");
 			html = ~/(\/\*[^*]*\*\/)/g.replace(html, "<span class='cmt'>$1</span>");
 			html = html.split("\t").join("    ");
 			s.html(html);
 		}
-		
+
 		var clickThrough = js.Browser.window.localStorage.getItem("click") != "false";
 
 		for( pre in J("pre.byLine") ) {
@@ -54,7 +56,7 @@ class App {
 			pre.remove();
 			if( clickThrough ) div.hide();
 		}
-		
+
 		var slides = [];
 		var curHash = js.Browser.location.hash;
 		var cur = Std.parseInt(js.Browser.location.hash.substr(1));
@@ -68,7 +70,7 @@ class App {
 			var p = s.wrap("<div class='slide-container'>").parent();
 			s.prepend(J("<div>").addClass("slide-bg"));
 			var id = slides.length;
-			var parts = s.find("li,pre,h2,p,div.pre .line,.click").filter(clickThrough ? "*" : "empty");
+			var parts = s.find("li,pre,h2,p,div.pre .line,.click").not("li > pre:first-child").filter(clickThrough ? "*" : "empty");
 			parts = parts.not(".visible");
 			parts.hide();
 			if( id == cur ) {
@@ -79,7 +81,10 @@ class App {
 			p.hide();
 			s.click(function(e) {
 				if( sub < parts.length ) {
-					J(parts[sub]).show().parent().show();
+					var p = J(parts[sub]);
+					p.show().parent().show();
+					if( p.hasClass("hidePrev") ) J(parts[sub - 1]).hide();
+					if( p.hasClass("highlight") ) for( p2 in parts ) p2.toggleClass("light", p[0] == p2[0]).toggleClass("unlight", p[0] != p2[0]);
 					sub++;
 				} else {
 					var tid = id + 1;
@@ -93,7 +98,7 @@ class App {
 				update();
 			});
 		}
-		
+
 		var menu = J("<div>").addClass("menu");
 		var ol = J("<ol>");
 		for( i in 0...slides.length ) {
@@ -109,7 +114,7 @@ class App {
 		menu.append("<br>");
 
 		var body = J("body");
-		
+
 		function onResize() {
 			J(".slide").css( { "-webkit-transform" : "scale(1)", "-webkit-transform-origin" : "center top" } );
 			var j = J(cast js.Browser.document);
@@ -128,13 +133,13 @@ class App {
 			}
 		});
 		js.Browser.window.onresize = function(_) onResize();
-		
+
 		for( h in J("h1") ) {
 			var count = 0;
 			if( h.text().indexOf(" ") < 0 ) continue;
 			h.html(~/(@|[^ ]+)/g.map(h.text(), function(r) return "<div class='word w"+(count++)+"'>"+r.matched(0)+"</div>"));
 		}
-		
+
 		slides[cur].show();
 		var t = new haxe.Timer(100);
 		t.run = function() {
@@ -144,5 +149,5 @@ class App {
 			}
 		};
 	}
-	
+
 }

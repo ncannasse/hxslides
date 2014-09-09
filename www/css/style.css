@@ -172,17 +172,21 @@ pre, div.pre {
 	padding : 5px;
 	border-left : 20px solid #bbb;
 }
-pre .kwd, div.pre .kwd {
-	color : #008;
-}
 pre .val, div.pre .val {
-	color : #448;
+	color : #448 !important;
 }
-pre .str, div.pre .str {
-	color : #800;
+pre .str, pre .str .kwd, pre .str .val, div.pre .str, div.pre .str .kwd, div.pre .str .val {
+	color : #800 !important;
 }
-pre .cmt, div.pre .cmt {
-	color : #080;
+pre .cmt, pre .cmt .kwd, pre .cmt .val, div.pre .cmt, div.pre .cmt .kwd, div.pre .cmt .val {
+	color : #080 !important;
+}
+pre .cond, pre .cond .kwd, pre .cond .val, div.pre .cond, div.pre .cond .kwd, div.pre .cond .val {
+	font-weight : bold;
+	color : #080 !important;
+}
+pre .kwd, div.pre .kwd {
+	color : #008 !important;
 }
 body.black .slide {
 	border : 1px solid #f48821;
@@ -207,4 +211,74 @@ body.black h1 {
 }
 body.black h1 .w1, body.black h1 .w3, body.black h1 .w5 {
 	color : #f48821;
+}
+body.black.v2 .slide {
+	color : #f0f0f0;
+	border : none;
+	background-color : rgb(16,16,20);
+	background-image : url("../img/haxeslide.png");
+	background-repeat : no-repeat;
+}
+body.black.v2 .slide ul {
+	font-size : 40px;
+	padding-left : 0px;
+}
+body.black.v2 .slide ul li {
+	text-align : center;
+	list-style : none;
+	padding-left : 0px;
+}
+body.black.v2 .slide ul li span {
+	color : #f48821;
+}
+body.black.v2 .slide ul li code {
+	color : #B3A9A9;
+}
+body.black.v2 .slide ul li code a {
+	background-color : #444;
+	color : #eee;
+	padding : 1px 2px;
+}
+body.black.v2 .slide ul li pre {
+	text-align : left;
+}
+body.black.v2 .slide ul li.list, body.black.v2 .slide ul p.list {
+	font-size : 30px;
+	font-style : italic;
+}
+body.black.v2 .slide ul.packed li {
+	margin-bottom : 5px;
+}
+body.black.v2 .slide li.unlight {
+	opacity : 0.5;
+	filter : alpha(opacity=50);
+	zoom : 1;
+}
+body.black.v2 .slide h1 {
+	color : #101019;
+	background-color : #FFFFFF;
+	background-color : rgba(255,255,255,0.9);
+	background-color : transparent\9;
+	filter : progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5FFFFFF, endColorstr=#E5FFFFFF);
+	zoom : 1;
+	letter-spacing : 1px;
+}
+body.black.v2 .slide.title {
+	background-image : url("../img/haxetitle.png");
+}
+body.black.v2 .slide.title h1 {
+	background : none;
+	color : #e3e3e3;
+	font-family : "Impact";
+	font-weight : normal;
+	font-size : 180px;
+	letter-spacing : 10px;
+	padding-right : 20px;
+}
+body.black.v2 .slide.title h1 span {
+	color : #f48821;
+}
+body.black.v2 .slide.title p {
+	bottom : 20px;
+	color : #141419;
 }

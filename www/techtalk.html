@@ -1,0 +1,831 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body class="black v2">
+
+<div class="slide title">
+	<div class="bg"></div>
+	<h1>HA<span>XE</span></h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>TechTalk Berlin</i>
+	</p>
+
+</div>
+
+<div class="slide">
+	<h1>What is Haxe?</h1>
+	<ul style="margin-top:80px">
+	<li><span>Cross platform</span> toolkit
+	<li class="list">
+		C++, JS, PHP, C#, Java, SWF, Neko, Python...
+	</li>
+	<li style="margin-top:80px">
+		One language, <span>multiple platforms</span>
+	</li>
+	<li class="list">
+		No VM/Runtime !
+	</li>
+	<li class="list">
+		«native everywhere»
+	</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>What is Haxe?</h1>
+
+	<ul>
+	<li>Tools and Libraries</li>
+	<li>Cross Compiler</li>
+	<li>Standard Library</li>
+	<li>Modern Language</li>
+	<li>A way of thinking</li>
+	<li class="hidePrev highlight">A way of thinking</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>My own experience</h1>
+
+	<ul>
+		<li>Started programming at 10</li>
+		<li class="list" style="padding:20px">GWBasic, QBasic, Turbo Pascal, x86 ASM, C, C++, Java, Lisp, OCaml, Perl, ActionScript, PHP...</li>
+		<li>Web dev, PHP/Flash/JS</li>
+		<li><span>Haxe</span></li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>Haxe Goals</h1>
+
+	<ul>
+		<li>Support <span>mainstream</span> platforms</li>
+		<li>Write once, <span>reuse</span> everywhere</li>
+		<li>Always <span>native</span>, no wrapper</li>
+		<li>Generated but <span>readable</span></li>
+		<li><span>Trust</span> the developer</li>
+		<li>No vendor <span>lock-in</span></li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe for what?</h1>
+
+	<ul>
+	<li>What people are using Haxe for?</li>
+	<li>
+		<img src="img/preziLogo.png" style="max-height:200px"/>
+	</li>
+	<li class="list">entirely rewrote their presentation client in Haxe/JS
+	<li class="list">Haxe enable them to easily maintain a large codebase
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>What is Haxe?</h1>
+
+	<ul>
+	<li class="visible unlight">Tools and Libraries</li>
+	<li class="visible unlight">Cross Compiler</li>
+	<li class="visible unlight">Standard Library</li>
+	<li class="visible light">Modern Language</li>
+	<li class="visible unlight">A way of thinking</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Class based</li>
+	<li>Mixed OO/functional</li>
+	<li>Not pure OO:</li>
+	<li class="list"><code>class, interface, typedef, structure, enum, abstract</code></li>
+	<li>Conservative Syntax (Java/JS/C-like)</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Type Inference</li>
+	<li>
+		<pre>
+		function foo( k ) {
+			var str = "Hello World !";
+			var a = [];
+			for( i in 0...k )
+				for( word in str.split(" ") )
+					a.push(word);
+			return a;
+		}
+		</pre>
+	</li>
+	<li>
+		<pre>
+		function foo( k : Int ) : Array&lt;String&gt;
+		</pre>
+	</li>
+	<li>The compiler is an ally, not the enemy</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+		<li>The Almighty <code>Dynamic</code></li>
+		<li>
+		<pre>
+		var x : Dynamic = ...;
+		// d&#8291;o anything with x
+		// use at your own risks
+		</pre>
+		</li>
+		<li>Direct unchecked platform access</li>
+		<li>Use <code>Reflect</code> API for crossplatorm</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Structural subtyping</li>
+	<li>
+		<pre>
+		typedef AnyPoint = { x : Float, y : Float };
+
+		function distance( a : AnyPoint, b : AnyPoint ) {
+			var dx = a.x - b.x;
+			var dy = a.y - b.y;
+			return Math.sqrt(dx * dx + dy * dy);
+		}
+		</pre>
+	</li>
+	<li>
+		<pre>
+		distance( new Point(5,1), { x : 1.5, y : -1 });
+		</pre>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Iterators
+		<pre>for( e in iterable ) {...}</pre>
+	<li>String interpolation
+		<pre>'The value of x is $x, and squared is ${x*x}'</pre>
+	<li>Array comprehension
+		<pre>
+			var arr = [for( i in 0...10 ) i];
+			// [0,1,2,3,4,5,6,7,8,9]
+		</pre>
+		<pre>
+			var arr2 = [for( x in arr ) if( x % 3 == 0 ) x];
+			// [0,3,6,9]
+		</pre>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Enums</li>
+	<li>
+		<pre>
+		enum Color {
+			Red;
+			Green;
+			Blue;
+			Gray( amount : Float );
+			Mix( a : Color, b : Color );
+		}
+		</pre>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Pattern Matching</li>
+	<li>
+		<pre>
+		function getValue( c : Color ) {
+			return switch( color ) {
+			case Red:   0xFF0000;
+			case Green: 0x00FF00;
+			case Blue:  0x0000FF;
+			case Gray(v):
+				var g = Std.int(v*255);
+				v | (v<<8) | (v<<16);
+			case Mix(a,b):
+				mixColor(getColor(a), getColor(b));
+			};
+		}
+		</pre>
+	</li>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>Haxe Language</h1>
+
+	<ul>
+	<li>Designed to run everywhere <span>efficiently</span>
+	<li>Example : <span>properties</span>
+		<pre>
+		class User {
+			public var age(get,set) : Int;
+			function get_age() { ... }
+			function set_age(v:Int) { ... }
+		}
+		</pre>
+	<li>And much more...
+	<li>RTFM :-)
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe for what?</h1>
+
+	<ul>
+	<li>What people are using Haxe for?</li>
+	<li>
+		<img src="img/tivoLogo.png" style="max-height:200px"/>
+	</li>
+	<li class="list">ported 1MLOC DVR UI to Haxe
+	<li class="list">better performances, easy access to new platforms
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>What is Haxe?</h1>
+
+	<ul>
+	<li class="visible unlight">Tools and Libraries</li>
+	<li class="visible unlight">Cross Compiler</li>
+	<li class="visible light">Standard Library</li>
+	<li class="visible unlight">Modern Language</li>
+	<li class="visible unlight">A way of thinking</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Standard Library</h1>
+
+	<ul>
+	<li>«Batteries <span>included</span>»
+	<li>Crossplatform, specified, <span>unit-tested</span></li>
+	<li class="list" style="padding:20px 40px"><code>String, Array&lt;T&gt;, Map&lt;K,V&gt;, Date, Math, Bytes, Xml, JSON, Reflect, Type, EReg, Http, Unicode, Serialization, Crypto, Zip, Binary I/O...</code></li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Standard Library</h1>
+
+	<ul>
+	<li>Platform-specific packages<br/><br/>
+	<li><code>js.html</code>: entirely typed <span>HTML5</span> API</li>
+	<li><code>sys</code>: crossplatform <span>system</span> library<br/>(file, process, network...)</li>
+	<li><br/><code>http://api.haxe.org</code></li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Standard Library</h1>
+
+	<ul>
+	<li>Conditional compilation
+	<li>
+		<pre>
+		function print( str : String ) {
+		#if js
+			js.Browser.console.log(str);
+		#elseif sys
+			Sys.println(str);
+		#else
+			throw "Not supported for this platform";
+		#end
+		}
+		</pre>
+	<li>
+		Encapsulate, reuse
+	</ul>
+
+
+</div>
+
+<div class="slide">
+	<h1>Standard Library</h1>
+
+	<ul>
+	<li class="visible">Conditional compilation
+	<li class="visible">
+		<pre class="visible">
+		<b>inline</b> function print( str : String ) {
+		#if js
+			js.Browser.console.log(str);
+		#elseif sys
+			Sys.println(str);
+		#else
+			throw "Not supported for this platform";
+		#end
+		}
+		</pre>
+	<li class="visible">
+		Encapsulate, reuse, <span>optimize</span>
+	</ul>
+
+
+</div>
+
+
+<div class="slide">
+	<h1>What is Haxe?</h1>
+
+	<ul>
+	<li class="visible unlight">Tools and Libraries</li>
+	<li class="visible light">Cross Compiler</li>
+	<li class="visible unlight">Standard Library</li>
+	<li class="visible unlight">Modern Language</li>
+	<li class="visible unlight">A way of thinking</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li>Not black magic !</li>
+		<li class="list">
+			<code>if( value &gt; 58 ) print("Hello"+" World")</code>
+		</li>
+		<li><span>Lex</span> a program into <span>tokens</span></li>
+		<li class="list">
+			<code>
+			<a>if</a>
+			<a>(</a>
+			<a>value</a>
+			<a>&gt;</a>
+			<a>58</a>
+			<a>)</a>
+			<a>print</a>
+			<a>"Hello"</a>
+			<a>+</a>
+			<a>" World"</a>
+			<a>)</a>
+			</code>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li class="list visible">
+			<code>
+			<a>if</a>
+			<a>(</a>
+			<a>value</a>
+			<a>&gt;</a>
+			<a>58</a>
+			<a>)</a>
+			<a>print</a>
+			<a>"Hello"</a>
+			<a>+</a>
+			<a>" World"</a>
+			<a>)</a>
+			</code>
+		</li>
+		<li><span>Parse</span> tokens into <span>AST</span></li>
+		<li>
+			<img src="img/ast.png" height="350px"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li><span>Typer</span> check program and give <span>types</span></li>
+		<li>
+			<img src="img/tast.png" height="350px"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li><span>Optimizer</span> optimize the <span>AST</span></li>
+		<li>
+			<img src="img/tast.png" height="350px"/>
+		</li>
+		<li class="hidePrev">
+			<img src="img/optast.png" height="350px"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li style="font-size:80%"><span>Generator</span> translate the AST to <span>target language</span></li>
+		<li>
+			<pre>
+			&lt;?php
+			if( $value > 58 )
+				haxe_Log::trace("Hello World !");
+			</pre>
+			or
+			<pre>
+			# python
+			if (value > 58):
+				haxe_Log.trace("Hello World !")
+			</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li>
+			<span>Sanitize</span> any language (even PHP)
+		</li>
+		<li>
+			Keep the <span>existing</span> runtime/libraries
+		</li>
+		<li>
+			<span>Team</span> «speak the same language»
+		</li>
+		<li>
+			<span>Reuse</span> code on different platform
+		</li>
+		<li>
+			Easy to maintain / <span>long term</span>
+		</li>
+		<li>
+			Very <span>Fast</span>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li style="margin-top:60px">
+			<span>Debug</span> in target language
+		</li>
+		<li class="list">
+			code easy to read + some solutions exists : C++, JS (sourcemap), Flash/Neko C#/Java soon.
+		</li>
+		<li style="margin-top:60px">
+			<span>Tooling</span> perfectible
+		</li>
+		<li class="list">
+			IDE support for refactoring etc : we're working on it!
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Cross Compiler</h1>
+
+	<ul>
+		<li>
+			Powerful <span>Dead Code Elimination</span>
+		</li>
+		<li class="list"><code>-dce full</code></li>
+		<li>
+			Code <span>completion</span> compiler service
+		</li>
+		<li>
+			Compilation Cache <span>Server</span>
+		</li>
+		<li>
+			<span>&#9762;</span> Macros <span>&#9762;</span>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe for what?</h1>
+
+	<ul class="packed">
+	<li>
+		<img src="img/eirb/evoland.jpg" style="max-height:360px"/>
+	</li>
+	<li class="list">Evoland, entirely written in Haxe, sold 400K units
+	<li class="list">Use open source <code>Heaps.io</code> 2D/3D game engine
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li>
+			<pre>
+				hxd.Res.|
+			</pre>
+			<div style="padding-left:100px">
+			<pre>
+				sfx
+				music
+				Hero
+				Monster
+			</pre>
+			<pre class="hidePrev">
+				sfx
+				music
+				Hero ->
+				Monster
+			</pre>
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li class="visible">
+			<pre class="visible">
+				hxd.Res.Hero.|
+			</pre>
+			<div style="padding-left:100px">
+			<pre class="visible">
+				.toTile()
+				.toTexture()
+				.toBitmap()
+				...
+			</pre>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li class="visible">
+			<pre class="visible">
+				hxd.Res.sfx.hurt.|
+			</pre>
+			<div style="padding-left:100px">
+			<pre class="visible">
+				.play()
+				.loop
+				.isPlaying()
+				...
+			</pre>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li>Compilation-time <span>code generator</span></li>
+		<li>can access the hard drive</li>
+		<li>can access your types</li>
+		<li>can extract metadata</li>
+		<li>can modify the AST</li>
+		<li>not the syntax</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li><span>ORM</span>, using Haxe-to-SQL generation
+		<li><pre>User.manager.select($age >= 30 && $name == searchedName)</pre></li>
+		<li>HxSL, macro based <span>Shader<span> for GPU</li>
+		<li><pre>
+			function vertex() {
+				output.position = vec4(input.position,1) * camera.mvp;
+			}
+		</pre>
+		<li>Generating types from a JSON DB (<span>CastleDB.org</span>)</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li>Ease handling of asynchronous code</li>
+		<li><pre>
+			<b>@whenever</b>(target.gets(MOUSE_DOWN)) <b>@do</b> {
+			  var x0 = stage.mouseX - target.x,
+				  y0 = stage.mouseY - target.y;
+			  <b>@until</b>(stage.gets(MOUSE_UP).next())
+				<b>@whenever</b>(stage.gets(MOUSE_MOVE)) {
+				  target.x = stage.mouseX - x0;
+				  target.y = stage.mouseY - y0;
+				}
+			}
+		</pre></li>
+		<li>...while abusing Medata
+			(<span>tink_lang</span>)
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<img src="img/wwx-macro.jpg" width="600px" />
+</div>
+
+<div class="slide">
+	<h1>What is Haxe?</h1>
+
+	<ul>
+	<li class="visible light">Tools and Libraries</li>
+	<li class="visible unlight">Cross Compiler</li>
+	<li class="visible unlight">Standard Library</li>
+	<li class="visible unlight">Modern Language</li>
+	<li class="visible unlight">A way of thinking</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Many Tools</h1>
+
+	<ul>
+	<li><span>IDE</span> Support</li>
+	<li class="list">FlashDevelop, SublimeText, IntelliJ, etc.</li>
+	<li>Generic <span>Libraries</span>
+	<li class="list">docgen, code coverage, unit tests, etc.</li>
+	<li style="margin-top:80px">
+		Check <code><span>lib.haxe.org</span></code>
+		<br/><code>haxelib install &lt;libname&gt;</code>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>For Games</h1>
+
+	<ul>
+	<li>
+	<img src="img/openfl.png"/>
+	<img src="img/flambe.png"/>
+	<img src="img/haxeflixel.png" style="background-color:white; max-width:240px" />
+	<img src="img/heaps.png"/>
+	<img src="img/stencyl.png"/>
+	<img src="img/reach3dx.png"/>
+	<img class="click" src="img/pplease.png" style="max-height:200px"/>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>For Web Server</h1>
+
+	<ul>
+	<li><code>sys.db</code> <span>ORM</span></li>
+	<li>Erazor and Templo <span>Template system</span></li>
+	<li>PHP, Java, or NekoVM/Tora application server</li>
+	<li>UFront framework to unify it all</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>For Better JS</h1>
+
+	<ul>
+	<li>plain Haxe + <code>js.JQuery</code></li>
+	<li>easy to extend with <code>externs</code></li>
+	<li>modularity, flexibility</li>
+	<li><span>choose</span> what to generate</li>
+	<li><span>DCE</span> for large codebase</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>And For...</h1>
+
+	<ul>
+	<li>Mobile Apps
+	<li>Desktop Apps
+	<li>Commandline Apps
+	<li>+&#8734;
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>In Short</h1>
+
+	<ul>
+	<li>Haxe can be used <span>alone</span>
+	<li>Or with <span>high level</span> libraries
+	<li>To <span>develop</span> many things
+	<li>Or write the next successful <span>crossplatform</span> library
+	</ul>
+</div>
+
+
+<div class="slide">
+
+	<h1>Haxe Goals Reached!</h1>
+
+	<ul>
+		<li>Support <span>mainstream</span> platforms</li>
+		<li>Write once, <span>reuse</span> everywhere</li>
+		<li>Always <span>native</span>, no wrapper</li>
+		<li>Generated but <span>readable</span></li>
+		<li><span>Trust</span> the developer</li>
+		<li>No vendor <span>lock-in</span></li>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>About Us</h1>
+
+	<ul>
+	<li><span>Haxe</span> Foundation
+	<li>Manage Haxe <span>evolution</span>
+	<li><span>Long-Term</span> investement
+	<li>Financed by our <span>partners</span>
+	<li style="margin-top:80px">
+		Any <span>question</span> ? Please <span>contact</span> us
+	</li>
+	</ul>
+</div>
+
+<div class="slide title">
+	<h1 style="font-size : 60px">Thank You&nbsp;!</h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>TechTalk Berlin</i>
+	</p>
+
+</div>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+
+</body>
+</html>
