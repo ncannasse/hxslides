@@ -1,0 +1,723 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body class="black v2">
+
+<div class="slide title">
+	<div class="bg"></div>
+	<h1>HA<span>XE</span></h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>BDX.io</i>
+	</p>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe c'est quoi ?</h1>
+	<ul style="margin-top:80px">
+	<li>Un toolkit <span>Multi-platforme</span>
+	<li class="list">
+		C++, JS, PHP, C#, Java, SWF, Neko, Python...
+	</li>
+	<li style="margin-top:80px">
+		Un langage, <span>plusieures platformes</span>
+	</li>
+	<li class="list">
+		Sans VM !
+	</li>
+	<li class="list">
+		«natif partout»
+	</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe c'est quoi ?</h1>
+
+	<ul>
+	<li>Outils et Bibliothèques</li>
+	<li>Compilateur Multi-platforme</li>
+	<li>Bibliothèque Standard</li>
+	<li>Langage Moderne</li>
+	<li>Une façon de penser</li>
+	<li class="hidePrev highlight">Une façon de penser</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>A propos</h1>
+
+	<ul>
+		<li>Commencé à programmer à 10 ans</li>
+		<li class="list">GWBasic, QBasic, Turbo Pascal, x86 ASM, C, C++, Java, Lisp, OCaml, Perl, ActionScript, PHP...</li>
+		<li>Co-fondé <span>Motion-Twin</span></li>
+		<li class="list">Web dev, PHP/Flash/JS</li>
+		<li><span>Haxe</span></li>
+		<li><span>Shiro</span> Games (13h35 Amphi D)</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>Buts de Haxe</h1>
+
+	<ul>
+		<li>Supporter les plateformes <span>mainstream</span></li>
+		<li>Ecrite une fois, <span>réutiliser</span> partout</li>
+		<li>Toujours <span>natif</span>, sans surcouche</li>
+		<li>Code généré mais <span>lisible</span></li>
+		<li>Avoir <span>confiance</span> dans le développeur</li>
+		<li>Pas <span>captif</span> d'une techno</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe pour faire quoi ?</h1>
+
+	<ul>
+	<li>De quelle façon Haxe est utilisé ?</li>
+	<li>
+		<img src="img/preziLogo.png" style="max-height:200px"/>
+	</li>
+	<li class="list">ont entièrement porté leur client en Haxe/JS
+	<li class="list" style="font-size:70%">Haxe leur permet de maintenir une grande quantité de code
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe c'est quoi ?</h1>
+
+	<ul>
+	<li class="visible unlight">Outils et Bibliothèques</li>
+	<li class="visible unlight">Compilateur Multi-platforme</li>
+	<li class="visible unlight">Bibliothèque Standard</li>
+	<li class="visible light">Langage Moderne</li>
+	<li class="visible unlight">Une façon de penser</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Basé sur des classes</li>
+	<li>Mélange OO/fonctionnel</li>
+	<li>PAS pur OO:</li>
+	<li class="list"><code>class, interface, typedef, structure, enum, abstract</code></li>
+	<li>Syntaxe classique (Java/JS/C-like)</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Inférence de type</li>
+	<li>
+		<pre>
+		function foo( k ) {
+			var str = "Hello World !";
+			var a = [];
+			for( i in 0...k )
+				for( word in str.split(" ") )
+					a.push(word);
+			return a;
+		}
+		</pre>
+	</li>
+	<li>
+		<pre>
+		function foo( k : Int ) : Array&lt;String&gt;
+		</pre>
+	</li>
+	<li class="list">Le compilateur est un allié, pas un ennemi</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+		<li>Le tout-puissant <code>Dynamic</code></li>
+		<li>
+		<pre>
+		var x : Dynamic = ...;
+		// fait ce que l'on veut avec x
+		// responsabilité du développeur
+		</pre>
+		</li>
+		<li>Accés direct et sans filet à la plateforme</li>
+		<li>Utiliser l'API <code>Reflect</code> pour du multi-plateforme</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Sous typage structurel</li>
+	<li>
+		<pre>
+		typedef AnyPoint = { x : Float, y : Float };
+
+		function distance( a : AnyPoint, b : AnyPoint ) {
+			var dx = a.x - b.x;
+			var dy = a.y - b.y;
+			return Math.sqrt(dx * dx + dy * dy);
+		}
+		</pre>
+	</li>
+	<li>
+		<pre>
+		distance( new Point(5,1), { x : 1.5, y : -1 });
+		</pre>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Iterateurs
+		<pre>for( e in iterable ) {...}</pre>
+	<li>Interpolation de chaîne
+		<pre>'The value of x is $x, and squared is ${x*x}'</pre>
+	<li>Comprehensions
+		<pre>
+			var arr = [for( i in 0...10 ) i];
+			// [0,1,2,3,4,5,6,7,8,9]
+		</pre>
+		<pre>
+			var arr2 = [for( x in arr ) if( x % 3 == 0 ) x];
+			// [0,3,6,9]
+		</pre>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Enums</li>
+	<li>
+		<pre>
+		enum Color {
+			Red;
+			Green;
+			Blue;
+			Gray( amount : Float );
+			Mix( a : Color, b : Color );
+		}
+		</pre>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Pattern Matching</li>
+	<li>
+		<pre>
+		function getValue( c : Color ) {
+			return switch( color ) {
+			case Red:   0xFF0000;
+			case Green: 0x00FF00;
+			case Blue:  0x0000FF;
+			case Gray(v):
+				var g = Std.int(v*255);
+				v | (v<<8) | (v<<16);
+			case Mix(a,b):
+				mixColor(getColor(a), getColor(b));
+			};
+		}
+		</pre>
+	</li>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>Langage Haxe</h1>
+
+	<ul>
+	<li>Conçu pour être <span>efficient</span>
+	<li>Exemple : <span>propriétés</span>
+		<pre>
+		class User {
+			public var age(get,set) : Int;
+			function get_age() { ... }
+			function set_age(v:Int) { ... }
+		}
+		</pre>
+	<li>Et beaucoup plus...
+	<li>RTFM :-)
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe pour faire quoi ?</h1>
+
+	<ul>
+	<li>De quelle façon Haxe est utilisé ?</li>
+	<li>
+		<img src="img/tivoLogo.png" style="max-height:200px"/>
+	</li>
+	<li class="list">ont porté 1MLOC de leur UI DVR en Haxe
+	<li class="list">meilleures performances, nouvelles possibilités
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Haxe c'est quoi ?</h1>
+
+	<ul>
+	<li class="visible unlight">Outils et Bibliothèques</li>
+	<li class="visible unlight">Compilateur Multi-platforme</li>
+	<li class="visible light">Bibliothèque Standard</li>
+	<li class="visible unlight">Langage Moderne</li>
+	<li class="visible unlight">Une façon de penser</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Bibliothèque Standard</h1>
+
+	<ul>
+	<li>«Piles <span>incluses</span>»
+	<li>Multi-plateforme, specifiée, <span>testée</span></li>
+	<li class="list" style="padding:20px 40px"><code>String, Array&lt;T&gt;, Map&lt;K,V&gt;, Date, Math, Bytes, Xml, JSON, Reflect, Type, EReg, Http, Unicode, Serialization, Crypto, Zip, Binary I/O...</code></li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Bibliothèque Standard</h1>
+
+	<ul>
+	<li>Packages spécifiques<br/><br/>
+	<li><code>js.html</code>: API <span>HTML5</span> complète et typée</li>
+	<li><code>sys</code>: API <span>système</span> multi-plateforme<br/>(file, process, network...)</li>
+	<li><br/><code>http://api.haxe.org</code></li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Bibliothèque Standard</h1>
+
+	<ul>
+	<li>Compilation conditionnelle
+	<li>
+		<pre>
+		function print( str : String ) {
+		#if js
+			js.Browser.console.log(str);
+		#elseif sys
+			Sys.println(str);
+		#else
+			throw "Not supported for this platform";
+		#end
+		}
+		</pre>
+	<li>
+		Encapsuler, réutiliser
+	</ul>
+
+
+</div>
+
+<div class="slide">
+	<h1>Bibliothèque Standard</h1>
+
+	<ul>
+	<li class="visible">Compilation conditionnelle
+	<li class="visible">
+		<pre class="visible">
+		<b>inline</b> function print( str : String ) {
+		#if js
+			js.Browser.console.log(str);
+		#elseif sys
+			Sys.println(str);
+		#else
+			throw "Not supported for this platform";
+		#end
+		}
+		</pre>
+	<li class="visible">
+		Encapsuler, réutiliser, <span>optimiser</span>
+	</ul>
+
+
+</div>
+
+
+<div class="slide">
+	<h1>Haxe c'est quoi ?</h1>
+
+	<ul>
+	<li class="visible unlight">Outils et Bibliothèques</li>
+	<li class="visible light">Compilateur Multi-platforme</li>
+	<li class="visible unlight">Bibliothèque Standard</li>
+	<li class="visible unlight">Langage Moderne</li>
+	<li class="visible unlight">Une façon de penser</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li>Pas de la magie noire !</li>
+		<li class="list">
+			<code>if( value &gt; 58 ) print("Hello"+" World")</code>
+		</li>
+		<li><span>Lexer</span> un programme en <span>tokens</span></li>
+		<li class="list">
+			<code>
+			<a>if</a>
+			<a>(</a>
+			<a>value</a>
+			<a>&gt;</a>
+			<a>58</a>
+			<a>)</a>
+			<a>print</a>
+			<a>"Hello"</a>
+			<a>+</a>
+			<a>" World"</a>
+			<a>)</a>
+			</code>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li class="list visible">
+			<code>
+			<a>if</a>
+			<a>(</a>
+			<a>value</a>
+			<a>&gt;</a>
+			<a>58</a>
+			<a>)</a>
+			<a>print</a>
+			<a>"Hello"</a>
+			<a>+</a>
+			<a>" World"</a>
+			<a>)</a>
+			</code>
+		</li>
+		<li><span>Parser</span> les tokens en un <span>AST</span></li>
+		<li>
+			<img src="img/ast.png" height="350px"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li><span>Vérifier</span> le programme et le <span>typer</span></li>
+		<li>
+			<img src="img/tast.png" height="350px"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li><span>Optimizer</span> le programme</li>
+		<li>
+			<img src="img/tast.png" height="350px"/>
+		</li>
+		<li class="hidePrev">
+			<img src="img/optast.png" height="350px"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li style="font-size:80%"><span>Générer</span> l'AST vers le <span>langage cible</span></li>
+		<li>
+			<pre>
+			&lt;?php
+			if( $value > 58 )
+				haxe_Log::trace("Hello World !");
+			</pre>
+			ou
+			<pre>
+			# python
+			if (value > 58):
+				haxe_Log.trace("Hello World !")
+			</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul style="font-size:140%">
+		<li>
+			<span>Nettoie</span> n'importe quel langage (même PHP)
+		</li>
+		<li>
+			Conserver <span>l'existant</span> (code, bibliothèques)
+		</li>
+		<li>
+			<span>L'équipe</span> «parle le même langage»
+		</li>
+		<li>
+			<span>Réutiliser</span> le code sur d'autres plateformes
+		</li>
+		<li>
+			Facile à maintenir à <span>long terme</span>
+		</li>
+		<li>
+			Très <span>Rapide !</span>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li style="margin-top:60px">
+			<span>Debuger</span> dans le langage cible
+		</li>
+		<li class="list">
+			code est facile à lire + des solutions existent : C++, JS (sourcemap), Flash/Neko C#/Java bientôt.
+		</li>
+		<li style="margin-top:60px">
+			<span>Outils</span> perfectibles
+		</li>
+		<li class="list">
+			Ajout du refactoring dans IDE etc : on y travaille !
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Compilateur Haxe</h1>
+
+	<ul>
+		<li>
+			Puissante <span>Elimination de Code</span>
+		</li>
+		<li class="list"><code>-dce full</code></li>
+		<li>
+			<span>Completion</span> supportée par le compilateur
+		</li>
+		<li>
+			<span>Serveur</span> de cache de compilation
+		</li>
+		<li>
+			<span>&#9762;</span> Macros <span>&#9762;</span>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe pour faire quoi ?</h1>
+
+	<ul class="packed">
+	<li>
+		<img src="img/eirb/evoland.jpg" style="max-height:360px"/>
+	</li>
+	<li class="list">Evoland, entièrement écris in Haxe, vendu 400K unités
+	<li class="list">Utilise <code>Heaps.io</code> moteur 2D/3D 
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li>Programme executé <span>à la compilation</span></li>
+		<li>...qui prends en paramètre <span>du code</span></li>
+		<li>...et retourne un <span>autre programme</span></li>
+		<li>
+		<pre>
+			macro function getBuildDate() {
+				var str = Date.now().toString();
+				return { expr : EConst(CString(str)), pos : ... };
+			}
+		</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li>accèdent aux fichiers</li>
+		<li>accèdent à vos types</li>
+		<li>peuvent modifier l'AST</li>
+		<li>mais pas la syntaxe</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Macros FTW</h1>
+
+	<ul>
+		<li>Quelques exemples :</li>
+		<li>Haxe <span>ORM</span></li>
+		<li>HxSL <span>Shader DSL</span></li>
+		<li>Castle <span>Static Database</span></li>
+		<li>etc.</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Haxe c'est quoi ?</h1>
+
+	<ul>
+	<li class="visible light">Outils et Bibliothèques</li>
+	<li class="visible unlight">Compilateur Multi-platforme</li>
+	<li class="visible unlight">Bibliothèque Standard</li>
+	<li class="visible unlight">Langage Moderne</li>
+	<li class="visible unlight">Une façon de penser</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Nombreux Outils</h1>
+
+	<ul>
+	<li>Support <span>IDE</span></li>
+	<li class="list">SublimeText, IntelliJ, FlashDevelop etc.</li>
+	<li><span>Bibliothèques</span>
+	<li class="list">docgen, code coverage, unit tests, etc.</li>
+	<li style="margin-top:80px">
+		Disponibles sur <code><span>lib.haxe.org</span></code>
+		<br/><code>haxelib install &lt;libname&gt;</code>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Pour le Serveur Web</h1>
+
+	<ul>
+	<li><code>sys.db</code> <span>ORM</span></li>
+	<li>Erazor et Templo <span>systemes de template</span></li>
+	<li>PHP, Java, ou NekoVM/Tora serveur d'application</li>
+	<li>framework UFront pour unifier tout cela</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Pour les clients JS</h1>
+
+	<ul>
+	<li>juste Haxe + <code>js.JQuery</code></li>
+	<li>facile à étendre via des <code>externs</code></li>
+	<li>modularité, flexibilité</li>
+	<li><span>choisir</span> ce que l'on génére</li>
+	<li><span>DCE</span> pour les applications</li>
+	</ul>
+</div>
+
+
+<div class="slide">
+	<h1>Pour les Jeux</h1>
+
+	<ul>
+	<li>
+	<img src="img/openfl.png"/>
+	<img src="img/flambe.png"/>
+	<img src="img/haxeflixel.png" style="background-color:white; max-width:240px" />
+	<img src="img/heaps.png"/>
+	<img src="img/stencyl.png"/>
+	<img src="img/reach3dx.png"/>
+	<img class="click" src="img/pplease.png" style="max-height:200px"/>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Et pour...</h1>
+
+	<ul>
+	<li>Applications Mobiles
+	<li>Applications Desktop
+	<li>Applications Ligne de commande
+	<li>+&#8734;
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>A Propos</h1>
+
+	<ul>
+	<li><span>Haxe</span> Foundation
+	<li>Manage <span>l'évolution</span> de Haxe
+	<li>Investissement à <span>Long Terme</span>
+	<li>Financée par nos <span>partenaires</span>
+	<li style="margin-top:80px">
+		Des <span>questions</span> ? <span>Contactez</span> nous
+	</li>
+	</ul>
+</div>
+
+<div class="slide title">
+	<h1 style="font-size : 66px;padding-left:10px">Mer<span>ci&nbsp;!</span></h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		@ncannasse<br/>
+		<i>BDX.io</i>
+	</p>
+
+</div>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+
+</body>
+</html>
