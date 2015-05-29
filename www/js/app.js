@@ -1,5 +1,11 @@
-(function () { "use strict";
-var App = function() { };
+(function (console, $hx_exports) { "use strict";
+function $extend(from, fields) {
+	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
+	for (var name in fields) proto[name] = fields[name];
+	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
+	return proto;
+}
+var App = $hx_exports.App = function() { };
 App.__name__ = true;
 App.main = function() {
 	var kwds = ["abstract","break","case","cast","class","continue","default","do","dynamic","else","enum","extends","extern","for","function","if","implements","import","in","inline","interface","macro","new","override","package","private","public","return","static","switch","throw","try","typedef","untyped","using","var","while"];
@@ -8,50 +14,50 @@ App.main = function() {
 	var vals1 = new EReg("\\b(" + vals.join("|") + ")\\b","g");
 	var $it0 = (function($this) {
 		var $r;
-		var _this = new js.JQuery("pre");
-		$r = (_this.iterator)();
+		var _this1 = js.JQuery("pre");
+		$r = (_this1.iterator)();
 		return $r;
 	}(this));
 	while( $it0.hasNext() ) {
-		var s = $it0.next();
-		var html = s.html();
+		var s1 = $it0.next();
+		var html1 = s1.html();
 		var tabs = null;
 		var _g = 0;
-		var _g1 = html.split("\n");
+		var _g1 = html1.split("\n");
 		while(_g < _g1.length) {
 			var line = _g1[_g];
 			++_g;
 			if(StringTools.trim(line) != "") {
 				var r = new EReg("^\t*","");
 				r.match(line);
-				var t = r.matched(0);
-				if(tabs == null || t.length < tabs.length) tabs = t;
+				var t1 = r.matched(0);
+				if(tabs == null || t1.length < tabs.length) tabs = t1;
 			}
 		}
-		html = new EReg("^" + Std.string(tabs),"gm").replace(html,"");
-		html = StringTools.trim(html);
-		html = new EReg("('[^']*')","g").replace(html,"<span __xlass='str'>$1</span>");
-		html = new EReg("((#if [a-zA-Z0-9_]+)|(#end)|(#elseif [a-zA-Z0-9_]+))","g").replace(html,"<span __xlass='cond'>$1</span>");
-		html = new EReg("(#else)","g").replace(html,"<span __xlass='cond'>$1</span>");
-		html = kwds1.replace(html,"<span class='kwd'>$1</span>");
-		html = vals1.replace(html,"<span class='val'>$1</span>");
-		html = html.split("__xlass").join("class");
-		html = new EReg("(\"[^\"]*\")","g").replace(html,"<span class='str'>$1</span>");
-		html = new EReg("(//[^\n]*)","g").replace(html,"<span class='cmt'>$1</span>");
-		html = new EReg("(/\\*[^*]*\\*/)","g").replace(html,"<span class='cmt'>$1</span>");
-		html = html.split("\t").join("    ");
-		s.html(html);
+		html1 = new EReg("^" + Std.string(tabs),"gm").replace(html1,"");
+		html1 = StringTools.trim(html1);
+		html1 = new EReg("('[^']*')","g").replace(html1,"<span __xlass='str'>$1</span>");
+		html1 = new EReg("((#if [a-zA-Z0-9_]+)|(#end)|(#elseif [a-zA-Z0-9_]+))","g").replace(html1,"<span __xlass='cond'>$1</span>");
+		html1 = new EReg("(#else)","g").replace(html1,"<span __xlass='cond'>$1</span>");
+		html1 = kwds1.replace(html1,"<span class='kwd'>$1</span>");
+		html1 = vals1.replace(html1,"<span class='val'>$1</span>");
+		html1 = html1.split("__xlass").join("class");
+		html1 = new EReg("(\"[^\"]*\")","g").replace(html1,"<span class='str'>$1</span>");
+		html1 = new EReg("(//[^\n]*)","g").replace(html1,"<span class='cmt'>$1</span>");
+		html1 = new EReg("(/\\*[^*]*\\*/)","g").replace(html1,"<span class='cmt'>$1</span>");
+		html1 = html1.split("\t").join("    ");
+		s1.html(html1);
 	}
 	var clickThrough = window.localStorage.getItem("click") != "false";
 	var $it1 = (function($this) {
 		var $r;
-		var _this1 = new js.JQuery("pre.byLine");
-		$r = (_this1.iterator)();
+		var _this2 = js.JQuery("pre.byLine");
+		$r = (_this2.iterator)();
 		return $r;
 	}(this));
 	while( $it1.hasNext() ) {
 		var pre = $it1.next();
-		var div = new js.JQuery("<div>").addClass("pre");
+		var div = js.JQuery("<div>").addClass("pre");
 		var _g2 = 0;
 		var _g11 = pre.html().split("\n");
 		while(_g2 < _g11.length) {
@@ -61,7 +67,7 @@ App.main = function() {
 			while(HxOverrides.cca(line1,i) == 32) i++;
 			line1 = HxOverrides.substr(line1,i,null);
 			while(i-- > 0) line1 = "&nbsp;" + line1;
-			new js.JQuery("<div>").addClass("line").html(line1).appendTo(div);
+			js.JQuery("<div>").addClass("line").html(line1).appendTo(div);
 		}
 		div.insertAfter(pre);
 		pre.remove();
@@ -69,7 +75,12 @@ App.main = function() {
 	}
 	var slides = [];
 	var curHash = window.location.hash;
-	var cur = Std.parseInt(HxOverrides.substr(window.location.hash,1,null));
+	var cur = Std.parseInt((function($this) {
+		var $r;
+		var _this = window.location.hash;
+		$r = HxOverrides.substr(_this,1,null);
+		return $r;
+	}(this)));
 	var sub = Std.parseInt(window.location.hash.split("-")[1]);
 	var update = function() {
 		window.location.hash = curHash = "#" + cur + "-" + sub;
@@ -78,33 +89,33 @@ App.main = function() {
 	if(sub == null) sub = 0;
 	var $it2 = (function($this) {
 		var $r;
-		var _this2 = new js.JQuery(".slide");
-		$r = (_this2.iterator)();
+		var _this3 = js.JQuery(".slide");
+		$r = (_this3.iterator)();
 		return $r;
 	}(this));
 	while( $it2.hasNext() ) {
-		var s1 = $it2.next();
-		var p = [s1.wrap("<div class='slide-container'>").parent()];
-		s1.prepend(new js.JQuery("<div>").addClass("slide-bg"));
+		var s2 = $it2.next();
+		var p = [s2.wrap("<div class='slide-container'>").parent()];
+		s2.prepend(js.JQuery("<div>").addClass("slide-bg"));
 		var id = [slides.length];
-		var parts = [s1.find("li,pre,h2,p,div.pre .line,.click").not("li > pre:first-child").filter(clickThrough?"*":"empty")];
+		var parts = [s2.find("li,pre,h2,p,div.pre .line,.click").not("li > pre:first-child").filter(clickThrough?"*":"empty")];
 		parts[0] = parts[0].not(".visible");
 		parts[0].hide();
 		if(id[0] == cur) {
 			var _g3 = 0;
 			while(_g3 < sub) {
 				var i1 = _g3++;
-				new js.JQuery(parts[0][i1]).show().parent().show();
+				js.JQuery(parts[0][i1]).show().parent().show();
 			}
 		}
 		slides.push(p[0]);
 		p[0].hide();
-		s1.click((function(parts,id,p) {
+		s2.click((function(parts,id,p) {
 			return function(e) {
 				if(sub < parts[0].length) {
-					var p1 = new js.JQuery(parts[0][sub]);
+					var p1 = js.JQuery(parts[0][sub]);
 					p1.show().parent().show();
-					if(p1.hasClass("hidePrev")) new js.JQuery(parts[0][sub - 1]).hide();
+					if(p1.hasClass("hidePrev")) js.JQuery(parts[0][sub - 1]).hide();
 					if(p1.hasClass("highlight")) {
 						var $it3 = (parts[0].iterator)();
 						while( $it3.hasNext() ) {
@@ -126,32 +137,33 @@ App.main = function() {
 			};
 		})(parts,id,p));
 	}
-	var menu = new js.JQuery("<div>").addClass("menu");
-	var ol = new js.JQuery("<ol>");
+	var menu = js.JQuery("<div>").addClass("menu");
+	var ol = js.JQuery("<ol>");
 	var _g12 = 0;
 	var _g4 = slides.length;
 	while(_g12 < _g4) {
 		var i2 = _g12++;
 		var title = slides[i2].find("h1").eq(0).text();
-		ol.append(new js.JQuery("<li>").append(new js.JQuery("<a>").attr("href","#" + i2).text(title)));
+		if(title == "") title = "Slide #" + (i2 + 1);
+		ol.append(js.JQuery("<li>").append(js.JQuery("<a>").attr("href","#" + i2).text(title)));
 	}
 	menu.append(ol);
-	menu.append(new js.JQuery("<a>").text("Present mode : " + (clickThrough == null?"null":"" + clickThrough)).click(function() {
+	menu.append(js.JQuery("<a>").text("Present mode : " + (clickThrough == null?"null":"" + clickThrough)).click(function() {
 		clickThrough = !clickThrough;
 		window.localStorage.setItem("click","" + (clickThrough == null?"null":"" + clickThrough));
 		window.location.reload();
 	}));
 	menu.append("<br>");
-	var body = new js.JQuery("body");
+	var body = js.JQuery("body");
 	var onResize = function() {
-		new js.JQuery(".slide").css({ '-webkit-transform' : "scale(1)", '-webkit-transform-origin' : "center top"});
+		js.JQuery(".slide").css({ '-webkit-transform' : "scale(1)", '-webkit-transform-origin' : "center top", 'display' : "none"});
 		var j;
-		var html1 = window.document;
-		j = new js.JQuery(html1);
-		var s2 = Math.min(j.width() / 800,j.height() / 600);
-		new js.JQuery("body.fullScreen .slide").css({ '-webkit-transform' : "scale(" + s2 + ")"});
+		var html = window.document;
+		j = js.JQuery(html);
+		var s = (App.WIDE?Math.max:Math.min)(j.width() / App.W,j.height() / App.H);
+		js.JQuery("body.fullScreen .slide").css({ '-webkit-transform' : "scale(" + s + ")", 'display' : "block"});
 	};
-	menu.append(new js.JQuery("<a>").text("Full Screen").click(function() {
+	menu.append(js.JQuery("<a>").text("Full Screen").click(function() {
 		body.toggleClass("fullScreen");
 		onResize();
 	}));
@@ -166,14 +178,15 @@ App.main = function() {
 	};
 	var $it4 = (function($this) {
 		var $r;
-		var _this3 = new js.JQuery("h1");
-		$r = (_this3.iterator)();
+		var _this4 = js.JQuery("h1");
+		$r = (_this4.iterator)();
 		return $r;
 	}(this));
 	while( $it4.hasNext() ) {
 		var h = $it4.next();
 		var count = [0];
 		if(h.text().indexOf(" ") < 0) continue;
+		if(h.hasClass("wordinv")) count[0]++;
 		h.html(new EReg("(@|[^ ]+)","g").map(h.text(),(function(count) {
 			return function(r1) {
 				return "<div class='word w" + count[0]++ + "'>" + r1.matched(0) + "</div>";
@@ -181,11 +194,11 @@ App.main = function() {
 		})(count)));
 	}
 	slides[cur].show();
-	var t1 = new haxe.Timer(100);
-	t1.run = function() {
+	var t = new haxe_Timer(100);
+	t.run = function() {
 		if(window.location.hash != curHash) {
 			window.location.reload();
-			t1.stop();
+			t.stop();
 		}
 	};
 };
@@ -202,10 +215,10 @@ EReg.prototype = {
 		return this.r.m != null;
 	}
 	,matched: function(n) {
-		if(this.r.m != null && n >= 0 && n < this.r.m.length) return this.r.m[n]; else throw "EReg::matched";
+		if(this.r.m != null && n >= 0 && n < this.r.m.length) return this.r.m[n]; else throw new js__$Boot_HaxeError("EReg::matched");
 	}
 	,matchedPos: function() {
-		if(this.r.m == null) throw "No string matched";
+		if(this.r.m == null) throw new js__$Boot_HaxeError("No string matched");
 		return { pos : this.r.m.index, len : this.r.m[0].length};
 	}
 	,matchSub: function(s,pos,len) {
@@ -268,7 +281,7 @@ Math.__name__ = true;
 var Std = function() { };
 Std.__name__ = true;
 Std.string = function(s) {
-	return js.Boot.__string_rec(s,"");
+	return js_Boot.__string_rec(s,"");
 };
 Std.parseInt = function(x) {
 	var v = parseInt(x,10);
@@ -306,15 +319,14 @@ StringTools.rtrim = function(s) {
 StringTools.trim = function(s) {
 	return StringTools.ltrim(StringTools.rtrim(s));
 };
-var haxe = {};
-haxe.Timer = function(time_ms) {
+var haxe_Timer = function(time_ms) {
 	var me = this;
 	this.id = setInterval(function() {
 		me.run();
 	},time_ms);
 };
-haxe.Timer.__name__ = true;
-haxe.Timer.prototype = {
+haxe_Timer.__name__ = true;
+haxe_Timer.prototype = {
 	stop: function() {
 		if(this.id == null) return;
 		clearInterval(this.id);
@@ -323,10 +335,19 @@ haxe.Timer.prototype = {
 	,run: function() {
 	}
 };
-var js = {};
-js.Boot = function() { };
-js.Boot.__name__ = true;
-js.Boot.__string_rec = function(o,s) {
+var js__$Boot_HaxeError = function(val) {
+	Error.call(this);
+	this.val = val;
+	this.message = String(val);
+	if(Error.captureStackTrace) Error.captureStackTrace(this,js__$Boot_HaxeError);
+};
+js__$Boot_HaxeError.__name__ = true;
+js__$Boot_HaxeError.__super__ = Error;
+js__$Boot_HaxeError.prototype = $extend(Error.prototype,{
+});
+var js_Boot = function() { };
+js_Boot.__name__ = true;
+js_Boot.__string_rec = function(o,s) {
 	if(o == null) return "null";
 	if(s.length >= 5) return "<...>";
 	var t = typeof(o);
@@ -336,24 +357,24 @@ js.Boot.__string_rec = function(o,s) {
 		if(o instanceof Array) {
 			if(o.__enum__) {
 				if(o.length == 2) return o[0];
-				var str = o[0] + "(";
+				var str2 = o[0] + "(";
 				s += "\t";
 				var _g1 = 2;
 				var _g = o.length;
 				while(_g1 < _g) {
-					var i = _g1++;
-					if(i != 2) str += "," + js.Boot.__string_rec(o[i],s); else str += js.Boot.__string_rec(o[i],s);
+					var i1 = _g1++;
+					if(i1 != 2) str2 += "," + js_Boot.__string_rec(o[i1],s); else str2 += js_Boot.__string_rec(o[i1],s);
 				}
-				return str + ")";
+				return str2 + ")";
 			}
 			var l = o.length;
-			var i1;
+			var i;
 			var str1 = "[";
 			s += "\t";
 			var _g2 = 0;
 			while(_g2 < l) {
 				var i2 = _g2++;
-				str1 += (i2 > 0?",":"") + js.Boot.__string_rec(o[i2],s);
+				str1 += (i2 > 0?",":"") + js_Boot.__string_rec(o[i2],s);
 			}
 			str1 += "]";
 			return str1;
@@ -362,14 +383,15 @@ js.Boot.__string_rec = function(o,s) {
 		try {
 			tostr = o.toString;
 		} catch( e ) {
+			if (e instanceof js__$Boot_HaxeError) e = e.val;
 			return "???";
 		}
-		if(tostr != null && tostr != Object.toString) {
+		if(tostr != null && tostr != Object.toString && typeof(tostr) == "function") {
 			var s2 = o.toString();
 			if(s2 != "[object Object]") return s2;
 		}
 		var k = null;
-		var str2 = "{\n";
+		var str = "{\n";
 		s += "\t";
 		var hasp = o.hasOwnProperty != null;
 		for( var k in o ) {
@@ -379,12 +401,12 @@ js.Boot.__string_rec = function(o,s) {
 		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
 			continue;
 		}
-		if(str2.length != 2) str2 += ", \n";
-		str2 += s + k + " : " + js.Boot.__string_rec(o[k],s);
+		if(str.length != 2) str += ", \n";
+		str += s + k + " : " + js_Boot.__string_rec(o[k],s);
 		}
 		s = s.substring(1);
-		str2 += "\n" + s + "}";
-		return str2;
+		str += "\n" + s + "}";
+		return str;
 	case "function":
 		return "<function>";
 	case "string":
@@ -405,5 +427,8 @@ q.fn.iterator = function() {
 		return $(this.j[this.pos++]);
 	}};
 };
+App.W = 800;
+App.H = 600;
+App.WIDE = false;
 App.main();
-})();
+})(typeof console != "undefined" ? console : {log:function(){}}, typeof window != "undefined" ? window : exports);

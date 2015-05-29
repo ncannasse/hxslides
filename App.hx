@@ -1,6 +1,12 @@
 import js.JQuery.JQueryHelper.*;
 
+@:expose
 class App {
+
+	static var W = 800;
+	static var H = 600;
+	static var SCALE = 1.;
+	static var WIDE = false;
 
 	public static function main() {
 		var kwds = ["abstract", "break", "case", "cast", "class", "continue", "default", "do", "dynamic", "else", "enum", "extends", "extern", "for", "function", "if", "implements", "import", "in", "inline", "interface", "macro", "new", "override", "package", "private", "public", "return", "static", "switch", "throw", "try", "typedef", "untyped", "using", "var", "while" ];
@@ -103,6 +109,7 @@ class App {
 		var ol = J("<ol>");
 		for( i in 0...slides.length ) {
 			var title = slides[i].find("h1").eq(0).text();
+			if( title == "" ) title = "Slide #" + (i + 1);
 			ol.append(J("<li>").append(J("<a>").attr("href", "#" + i).text(title)));
 		}
 		menu.append(ol);
@@ -116,10 +123,10 @@ class App {
 		var body = J("body");
 
 		function onResize() {
-			J(".slide").css( { "-webkit-transform" : "scale(1)", "-webkit-transform-origin" : "center top" } );
+			J(".slide").css( { "-webkit-transform" : "scale("+SCALE+")", "-webkit-transform-origin" : "center top", "display" : "none" } );
 			var j = J(cast js.Browser.document);
-			var s = Math.min(j.width() / 800, j.height() / 600);
-			J("body.fullScreen .slide").css( { "-webkit-transform" : "scale("+s+")" } );
+			var s = (WIDE ? Math.max : Math.min)(j.width() / W, j.height() / H);
+			J("body.fullScreen .slide").css( { "-webkit-transform" : "scale("+s+")", "display" : "block" } );
 		}
 
 		menu.append(J("<a>").text("Full Screen").click(function() {
@@ -137,6 +144,7 @@ class App {
 		for( h in J("h1") ) {
 			var count = 0;
 			if( h.text().indexOf(" ") < 0 ) continue;
+			if( h.hasClass("wordinv") ) count++;
 			h.html(~/(@|[^ ]+)/g.map(h.text(), function(r) return "<div class='word w"+(count++)+"'>"+r.matched(0)+"</div>"));
 		}
 
