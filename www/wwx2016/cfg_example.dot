@@ -1,0 +1,11 @@
+digraph graphname {
+graph [ dpi=300,bgcolor=transparent ];
+n286 [shape=box,label="trace(x)"];
+n285 [shape=box,label="x = 2"];
+n284 [shape=box,label="x = 2"];
+n282 [shape=box,label="var x = 1\nMain.getBool()"];
+n282 -> n285[label="else"];
+n282 -> n284[label="branch"];
+n284 -> n286[label="goto"];
+n285 -> n286[label="goto"];
+}

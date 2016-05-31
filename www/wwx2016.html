@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="slide title">
+	<h1>haxe-dev: Tales from within</h1>
+
+	<p class="visible">
+		<b>Simon Krajewski</b><br/>
+		<i>WWX 2016</i>
+	</p>
+</div>
+
+<div class="slide">
+	<h1>Overview</h1>
+
+	<ul>
+		<li>
+			Introduction
+		</li>
+		<li>
+			People
+		</li>
+		<li>
+			Road to Haxe 3.3
+			<ul>
+				<li>Recipe</li>
+				<li>Various new features</li>
+				<li>The new static analyzer</li>
+			</ul>
+		</li>
+		<li>
+			The future
+		</li>
+	</ul>
+</div>
+
+
+<div class="slide">
+	<h1>People: Here (1/2)</h1>
+
+	<ul>
+		<li>
+			<b>Hugh Sanderson</b>
+			<ul>
+				<li>C++ target generator and hxcpp</li>
+				<li>Technical input</li>
+			</ul>
+		</li>
+		<li>
+			<b>Dan Korostelev</b>
+			<ul>
+				<li>node.js externs</li>
+				<li>Python target generator</li>
+				<li>Savior of the Haxe 3.3 release</li>
+			</ul>
+		</li>
+		<li>
+			<b>Caue Waneck</b>
+			<ul>
+				<li>Java and C# target generators</li>
+			</ul>
+		</li>
+		<li>
+			<b>Josefiene Pertosa</b>
+			<ul>
+				<li>The girl you talk to</li>
+				<li>Mistress of <a href="http://haxe.org/blog">the Haxe blog</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>People: Here (2/2)</h1>
+	<ul>
+		<li>
+			<b>Andy Li</b>
+			<ul>
+				<li>JQuery externs</li>
+				<li>Everything involving testing, packaging and deployment</li>
+				<li>Best-practice advice</li>
+				<li>Hero of the Jason O'Neil succession crisis</li>
+			</ul>
+		</li>
+		<li>
+			<b>Justin Donaldson</b>
+			<ul>
+				<li>Lua target generator</li>
+			</ul>
+		</li>
+		<li>
+			<b>Simon Krajewski</b>
+			<ul>
+				<li>Compiler maintenance</li>
+				<li>Documentation</li>
+				<li>Issue management</li>
+				<li>Team management</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>People: Here (3/2)</h1>
+	<ul style="list-style-type: none;">
+		<li>
+			<ul>
+				<li>haxe.org maintenance</li>
+				<li>Help with code.haxe.org</li>
+				<li>Making Haxe releases</li>
+				<li>Working on Dox</li>
+				<li>Reminding Caue to fix his issues</li>
+				<li>Issues</li>
+				<li>More issues</li>
+				<li>And pull requests</li>
+				<li>But mostly issues</li>
+				<li>...</li>
+				<li>I'm just kidding!</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>People: At home (1/2)</h1>
+	<ul>
+		<li>
+			<b>Nicolas Cannasse</b>
+			<ul>
+				<li>Being Nicolas Cannasse</li>
+				<li>Haxe Foundation management</li>
+				<li>Not here due to long time planned family trip to Japan</li>
+			</ul>
+		</li>
+		<li>
+			<b>Mark Knol</b>
+			<ul>
+				<li>Mastermind behind <a href="http://code.haxe.org">code.haxe.org</a></li>
+				<li>Mar 22 16:42:18 &ltmarkknol&gt; i copy/pasted the haxedevelop site and put some snippets on it</li>
+				<li>Massive contributions to Haxe documentation</li>
+				<li>The guy that makes everything look nice</li>
+			</ul>
+		</li>
+		<li>
+			<b>Andreas Mokros</b>
+			<ul>
+				<li>Help with the PHP target</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>People: At home (2/2)</h1>
+
+	<ul>
+		<li>
+			<b>Gama11</b>
+			<ul>
+				<li>Diligent testing of the latest Haxe development versions</li>
+				<li>Causing Haxe 3.3 delays</li>
+			</ul>
+		</li>
+		<li>
+			<b>Valentin Lemiere</b>
+			<ul>
+				<li>Help with haxe.org</li>
+			</ul>
+		</li>
+		<li>
+			<b>Kevin Leung</b>
+			<ul>
+				<li>Taking care of Ufront</li>
+			</ul>
+		</li>
+		<li>
+			<b>Jason O'Neil</b>
+			<ul>
+				<li>Everything he has done for haxe.org</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Road to Haxe 3.3: Recipe (1/2)</h1>
+
+	<ul>
+		<li>
+			Rewrite things:
+			<ul>
+				<li>New static analyzer</li>
+				<li>New pattern matcher</li>
+				<li>New C++ target generator</li>
+			</ul>
+		</li>
+		<li>
+			Add new targets:
+			<ul>
+				<li>
+					Lua
+					<ul>
+						<li>See Justin Donaldson's talk "Shooting for the Moon: Haxe lands on Lua"</li>
+					</ul>
+				<li>
+					HL
+					<ul>
+						<li>Mysterious new but not quite completed target by Nicolas Cannasse</li>
+						<li>Generates C (not C++) code</li>
+						<li>Not much is known yet</li>
+						<li>But according to Robert Konrad <a href="https://pbs.twimg.com/media/Cft-2x1WwAAq18G.jpg:large">it can run Tetris</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Road to Haxe 3.3: Recipe (2/2)</h1>
+
+	<ul>
+		<li>
+			Add new features
+			<ul>
+				<li>import.hx</li>
+				<li>@:structInit</li>
+				<li>New display modes</li>
+			</ul>
+		</li>
+		<li>
+			Make lots of improvements and optimizations
+			<ul>
+				<li>Display modes are much more robust now</li>
+				<li>Unified inlining semantics</li>
+			</ul>
+		</li>
+		<li>
+			Fix lots of bugs
+		</li>
+		<li>
+			Stir and bake
+		</li>
+		<li>
+			Serve <a href="http://haxe.org/download/">on nice website</a>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>import.hx: Scenario</h1>
+
+	<ul>
+		<li>Directory structure:
+			<pre>src
+    pack
+	    File.hx
+	import.hx
+	Main.hx</pre>
+		</li>
+		<li>import.hx:
+			<pre>import haxe.Serializer.run;
+using StringTools;</pre>
+		</li>
+		<li><code>import</code> and <code>using</code> from import.hx affect all .hx files that are in its own directory and sub-directories (here: Main.hx and File.hx)</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>import.hx: Usage</h1>
+
+	<ul>
+		<li>
+			<pre>class Main {
+	static function main() {
+		// uses haxe.Serializer.run
+		trace(run("foo")); // y3:foo
+		// uses StringTools.replace
+		trace("foo".replace("f", "t")); // too
+	}
+}</pre>
+		</li>
+		<li>Filesystem-based, not package-based</li>
+		<li>Only <code>import</code> and <code>using</code> allowed</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>@:structInit: Introduction</h1>
+
+	<ul>
+		<li>
+			Excursion: Top-down type-inference
+			<ul>
+				<li>We know the type of an expression before typing it</li>
+				<li><code>var s:String = "foo";</code></li>
+				<li>Reading left-to-right, we can tell that we expect a <code>String</code> before typing <code>"foo"</code>
+				<li><code>var a:Array&lt;Dynamic&gt; = [12, "foo"];</code></li>
+			</ul>
+		</li>
+		<li>
+			Excursion: Classes vs. structures
+			<ul>
+				<li>Class structure is rigid, i.e. fields cannot be added or removed at will</li>
+				<li>Structures are more wobbly (Reflect.deleteField etc.)</li>
+				<li>Classes can be assigned to structures, so at run-time we cannot be sure what representation we have</li>
+				<li>Classes have better performance (on static targets)</li>
+				<li>Structures are sometimes easier to initialize</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>@:structInit: What we want</h1>
+
+	<ul>
+		<li>
+			It would be nice to do this:
+			<pre>class User {
+	public var name:String;
+	public var age:Int;
+}
+
+class Main {
+	static function main() {
+		var user:User = { name: "Simon", age: 33 };
+	}
+}</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>@:structInit: What we have</h1>
+
+	<ul>
+		<li>
+			Now you can!
+			<pre>@:structInit
+class User {
+	public var name:String;
+	public var age:Int;
+}
+
+class Main {
+	static function main() {
+		var user:User = { name: "Simon", age: 33 };
+	}
+}</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>@:structInit: What it does</h1>
+
+	<ul>
+		<li>Has two components:
+			<ol>
+				<li>Generates class constructor</li>
+				<li>Transforms structure expression to constructor call, using top-down inference</li>
+			</ol>
+		</li>
+		<li>Generated JavaScript:
+			<pre>var User = function(name,age) {
+	this.name = name;
+	this.age = age;
+};
+var Main = function() { };
+Main.main = function() {
+	new User("Simon",33);
+};</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>@:structInit - Evaluation order</h1>
+	<pre class="byLine">@:structInit
+class MyStruct {
+	public var a:Int;
+	public var b:Int;
+}
+
+class Main {
+	static var i = 0;
+	static function call() return i++;
+	static public function main() {
+		var m1:MyStruct = { a: call(), b: call() };
+		var m2:MyStruct = { b: call(), a: call() };
+	}
+}</pre>
+
+			<pre>new MyStruct(Main.call(),Main.call());
+var _g1 = Main.call();
+new MyStruct(Main.call(),_g1);</pre>
+</div>
+
+<div class="slide">
+	<h1>@:structInit - @:optional fields</h1>
+	<pre>@:structInit
+class MyStruct {
+	@:optional public var a:Int;
+	public var b:Int;
+}
+
+class Main {
+	static public function main() {
+		var m1:MyStruct = { b: 12 };
+		trace(m1.a); // null/0
+		trace(m1.b); // 12
+	}
+}</pre>
+	<pre>var m1 = new MyStruct(null,12);</pre>
+</div>
+
+
+
+
+<div class="slide">
+	<h1>Static Analysis - Getting started</h1>
+
+	<ul>
+		<li><b>Static</b>: Information that doesn't change, i.e. information which we know at compile-time</li>
+		<li><b>Analysis</b>: Determine information and utilize it somehow</li>
+		<li>
+			Example:
+			<pre>class Main {
+	static function main() {
+		var x = 1;
+		if (x == 2) {
+			throw "Critical exception";
+		}
+		trace(x);
+	}
+}</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Static analysis - Example</h1>
+
+	<pre>class Main {
+	static function main() {
+		var x = 1;
+		if (x == 2) {
+			throw "Critical exception";
+		}
+		trace(x);
+	}
+}</pre>
+	<ul>
+		<li>x is definitely 1</li>
+		<li>The condition never holds</li>
+		<li>We never throw the exception</li>
+		<li>We always print 1: <code>console.log(1)</code></li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Static analysis - Justification</h1>
+
+	<ul>
+		<li>"But I don't write code like that!"</li>
+		<li>
+			True, but compilation is a complicated process and these situations might arise from:
+			<ul>
+				<li>Inlining</li>
+				<li>Macros</li>
+				<li>Conditional compilation</li>
+				<li>More</li>
+			</ul>
+		</li>
+		<li>Less to worry about for users</li>
+		<li>Compilers might see some things that humans don't</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Static analysis - Control flow</h1>
+
+	<pre>class Main {
+	static function main() {
+		var x = 1;
+		if (getBool()) {
+			x = 2;
+		} else {
+			x = 2;
+		}
+		trace(x);
+	}
+
+	static function getBool() {
+		return true;
+	}
+}</pre>
+	<ul style="list-style-type: none;">
+		<li>
+			<img src="wwx2016/cfg_example.png" width="300" style="position: absolute; right: 17px; top: 93px;"/>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Static analysis - Observation</h1>
+	<img src="wwx2016/cfg_example.png" width="300" style="position: absolute; right: 17px; top: 93px;"/>
+	<ul>
+		<li>All incoming edges of the bottommost<br/>node assign x = 2</li>
+		<li>Therefore x must be 2 in the trace</li>
+		<li>Therefore we don't need either</br>x = 2 assignments</li>
+		<li>Therefore we don't need the<br/>branching at all</li>
+		<li>We don't need x at all</li>
+		<li><pre>Main.getBool();
+console.log(2);</pre>
+		</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Static analysis - What it does</h1>
+
+	<ul>
+		<li><b>Constant propagation</b>: Determine fixed values of variables and use them directly</li>
+		<li><b>Copy propagation</b>: Determine variable aliases</li>
+		<li><b>Local dead code elimiation</b>: Detect unused variable assignments and other dead code</li>
+		<li><b>Code motion</b>: Detect code that can be moved out of loop bodies</li>
+		<li><b>Code fusion and cleanup</b>: Make generated code nicer (no blocks in value places etc.)</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>The future</h1>
+
+	<ul>
+		<li>Unicode support is still a problem</li>
+		<li>Even better static analysis</li>
+		<li>sys API is meh</li>
+		<li>Null&lt;T&gt; is a nuisance</li>
+		<li>Further improve display interface</li>
+	</ul>
+</div>
+
+<div class="slide">
+	<h1>Thank you!</h1>
+</div>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
