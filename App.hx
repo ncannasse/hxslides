@@ -1,4 +1,11 @@
 import js.JQuery.JQueryHelper.*;
+import js.JQuery;
+
+typedef Slide = {
+	slide: JQuery,
+	parts: JQuery,
+	sub: Int
+}
 
 class App {
 
@@ -57,7 +64,7 @@ class App {
 			if( clickThrough ) div.hide();
 		}
 
-		var slides = [];
+		var slides:Array<Slide> = [];
 		var curHash = js.Browser.location.hash;
 		var cur = Std.parseInt(js.Browser.location.hash.substr(1));
 		var sub = Std.parseInt(js.Browser.location.hash.split("-")[1]);
@@ -66,6 +73,28 @@ class App {
 		}
 		if( cur == null ) cur = 0;
 		if( sub == null ) sub = 0;
+		function changeSlide(tid) {
+			var p = slides[cur];
+			var n = slides[tid];
+			if( n == null ) return;
+			cur = tid;
+			if (p != null) {
+				p.slide.hide();
+			}
+			n.slide.show();
+			p.sub = sub;
+			sub = n.sub;
+			update();
+		}
+		function changeSub() {
+			var parts = slides[cur].parts;
+			var p = J(parts[sub]);
+			p.show().parent().show();
+			if( p.hasClass("hidePrev") ) J(parts[sub - 1]).hide();
+			if( p.hasClass("highlight") ) for( p2 in parts ) p2.toggleClass("light", p[0] == p2[0]).toggleClass("unlight", p[0] != p2[0]);
+			sub++;
+			update();
+		}
 		for( s in J(".slide") ) {
 			var p = s.wrap("<div class='slide-container'>").parent();
 			s.prepend(J("<div>").addClass("slide-bg"));
@@ -77,32 +106,24 @@ class App {
 				for( i in 0...sub )
 					J(parts[i]).show().parent().show();
 			}
-			slides.push(p);
+			slides.push({ slide: p, parts: parts, sub: 0 });
 			p.hide();
-			s.click(function(e) {
+			function forward() {
 				if( sub < parts.length ) {
-					var p = J(parts[sub]);
-					p.show().parent().show();
-					if( p.hasClass("hidePrev") ) J(parts[sub - 1]).hide();
-					if( p.hasClass("highlight") ) for( p2 in parts ) p2.toggleClass("light", p[0] == p2[0]).toggleClass("unlight", p[0] != p2[0]);
-					sub++;
+					changeSub();
 				} else {
-					var tid = id + 1;
-					var n = slides[tid];
-					if( n == null ) return;
-					cur = tid;
-					p.hide();
-					n.show();
-					sub = 0;
+					changeSlide(id + 1);
 				}
-				update();
+			}
+			s.click(function(e) {
+				forward();
 			});
 		}
 
 		var menu = J("<div>").addClass("menu");
 		var ol = J("<ol>");
 		for( i in 0...slides.length ) {
-			var title = slides[i].find("h1").eq(0).text();
+			var title = slides[i].slide.find("h1").eq(0).text();
 			ol.append(J("<li>").append(J("<a>").attr("href", "#" + i).text(title)));
 		}
 		menu.append(ol);
@@ -127,9 +148,16 @@ class App {
 			onResize();
 		}));
 		body.append(menu).keydown(function(e) {
-			if( e.keyCode == 27 ) {
-				body.removeClass("fullScreen");
-				onResize();
+			switch (e.keyCode) {
+				case 27:
+					body.removeClass("fullScreen");
+					onResize();
+				case 37:
+					changeSlide(cur - 1);
+				case 39:
+					changeSlide(cur + 1);
+				case 40:
+					changeSub();
 			}
 		});
 		js.Browser.window.onresize = function(_) onResize();
@@ -140,7 +168,7 @@ class App {
 			h.html(~/(@|[^ ]+)/g.map(h.text(), function(r) return "<div class='word w"+(count++)+"'>"+r.matched(0)+"</div>"));
 		}
 
-		slides[cur].show();
+		slides[cur].slide.show();
 		var t = new haxe.Timer(100);
 		t.run = function() {
 			if( js.Browser.location.hash != curHash ) {
