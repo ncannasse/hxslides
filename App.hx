@@ -150,6 +150,9 @@ class App {
 			h.html(~/(@|[^ ]+)/g.map(h.text(), function(r) return "<div class='word w"+(count++)+"'>"+r.matched(0)+"</div>"));
 		}
 
+		for( v in J("[bg]").elements() )
+			v.css({background:"url(img/" + v.attr("bg") + ")", "background-size": "cover" });
+
 		slides[cur].show();
 		var t = new haxe.Timer(100);
 		t.run = function() {

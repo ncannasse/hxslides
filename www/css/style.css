@@ -189,7 +189,7 @@ pre .kwd, div.pre .kwd {
 	color : #008 !important;
 }
 body.black .slide {
-	border : 1px solid #f48821;
+	border : none;
 	border-radius : 0px;
 	-moz-border-radius : 0px;
 	-webkit-border-radius : 0px;

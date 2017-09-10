@@ -204,6 +204,12 @@ App.main = function() {
 			};
 		})(count)));
 	}
+	var _g_i5 = 0;
+	var _g_j5 = $("[bg]");
+	while(_g_i5 < _g_j5.length) {
+		var v = $(_g_j5[_g_i5++]);
+		v.css({ background : "url(img/" + v.attr("bg") + ")", "background-size" : "cover"});
+	}
 	slides[cur].show();
 	var t1 = new haxe_Timer(100);
 	t1.run = function() {

@@ -218,7 +218,7 @@ pre, div.pre {
 
 body.black {
 	.slide {
-		border : 1px solid #f48821;
+		border : none;
 		border-radius : 0px;
 		background : rgb(20,20,25);
 		color : white;
