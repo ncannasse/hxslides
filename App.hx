@@ -1,4 +1,4 @@
-import js.JQuery.JQueryHelper.*;
+import js.jquery.Helper.*;
 
 @:expose
 class App {
@@ -15,7 +15,7 @@ class App {
 		var vals = ["null", "true", "false", "this"];
 		var vals = new EReg("\\b(" + vals.join("|") + ")\\b", "g");
 
-		for( s in J("pre") ) {
+		for( s in J("pre").elements() ) {
 			var html = s.html();
 
 			// detect and remove identation
@@ -47,7 +47,7 @@ class App {
 
 		var clickThrough = js.Browser.window.localStorage.getItem("click") != "false";
 
-		for( pre in J("pre.byLine") ) {
+		for( pre in J("pre.byLine").elements() ) {
 			var div = J("<div>").addClass("pre");
 			for( line in pre.html().split("\n") ) {
 				var i = 0;
@@ -72,7 +72,7 @@ class App {
 		}
 		if( cur == null ) cur = 0;
 		if( sub == null ) sub = 0;
-		for( s in J(".slide") ) {
+		for( s in J(".slide").elements() ) {
 			var p = s.wrap("<div class='slide-container'>").parent();
 			s.prepend(J("<div>").addClass("slide-bg"));
 			var id = slides.length;
@@ -90,7 +90,7 @@ class App {
 					var p = J(parts[sub]);
 					p.show().parent().show();
 					if( p.hasClass("hidePrev") ) J(parts[sub - 1]).hide();
-					if( p.hasClass("highlight") ) for( p2 in parts ) p2.toggleClass("light", p[0] == p2[0]).toggleClass("unlight", p[0] != p2[0]);
+					if( p.hasClass("highlight") ) for( p2 in parts.elements() ) p2.toggleClass("light", p[0] == p2[0]).toggleClass("unlight", p[0] != p2[0]);
 					sub++;
 				} else {
 					var tid = id + 1;
@@ -113,7 +113,7 @@ class App {
 			ol.append(J("<li>").append(J("<a>").attr("href", "#" + i).text(title)));
 		}
 		menu.append(ol);
-		menu.append(J("<a>").text("Present mode : "+clickThrough).click(function() {
+		menu.append(J("<a>").text("Present mode : "+clickThrough).click(function(_) {
 			clickThrough = !clickThrough;
 			js.Browser.window.localStorage.setItem("click", "" + clickThrough);
 			js.Browser.location.reload();
@@ -123,13 +123,15 @@ class App {
 		var body = J("body");
 
 		function onResize() {
-			J(".slide").css( { "-webkit-transform" : "scale("+SCALE+")", "-webkit-transform-origin" : "center top", "display" : "none" } );
+			var slides = J("body.fullScreen .slide").css( { "transform" : "scale("+SCALE+")", "transform-origin" : "center top", "display" : "none" } );
 			var j = J(cast js.Browser.document);
-			var s = (WIDE ? Math.max : Math.min)(j.width() / W, j.height() / H);
-			J("body.fullScreen .slide").css( { "-webkit-transform" : "scale("+s+")", "display" : "block" } );
+			var sl = J(slides[0]);
+			var s = (WIDE ? Math.max : Math.min)(j.width() / sl.outerWidth(), j.height() / sl.outerHeight());
+			J("body.fullScreen .slide").css( { "transform" : "scale(" + s + ")", "display" : "block" } );
+			J(".slide").not("body.fullScreen .slide").css({ "transform" : "" });
 		}
 
-		menu.append(J("<a>").text("Full Screen").click(function() {
+		menu.append(J("<a>").text("Full Screen").click(function(_) {
 			body.toggleClass("fullScreen");
 			onResize();
 		}));
@@ -141,7 +143,7 @@ class App {
 		});
 		js.Browser.window.onresize = function(_) onResize();
 
-		for( h in J("h1") ) {
+		for( h in J("h1").elements() ) {
 			var count = 0;
 			if( h.text().indexOf(" ") < 0 ) continue;
 			if( h.hasClass("wordinv") ) count++;

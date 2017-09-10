@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="www/js/app.js" />
+    <movie path="www\js\app.js" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -21,6 +21,7 @@
   <build>
     <option directives="" />
     <option flashStrict="False" />
+    <option noInlineOnDebug="False" />
     <option mainClass="App" />
     <option enabledebug="False" />
     <option additional="" />
