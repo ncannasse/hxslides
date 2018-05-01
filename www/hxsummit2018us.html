@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Suranna"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body class="black">
+
+<style>
+.slide {
+	width : 960px;
+	height : 540px;
+	-webkit-transform: scale(1);
+	-webkit-transform-origin: center top 0px;
+}
+.slide.title h1, .slide.title h2 {
+	_font-family: Suranna;
+	font-variant: small-caps;
+	letter-spacing:2px;
+}
+
+.c {
+	color : #f48821;
+}
+
+.hmenu {
+	font-family: Suranna;
+	font-variant: small-caps;
+	text-align: center;
+	font-size:30px;
+	letter-spacing:2px;
+	margin-top : -30px;
+}
+.hmenu em {
+	display:block;
+	margin-bottom:-20px;
+	color:#f48821;
+}
+.hmenu .quote {
+	text-align : right;
+	margin-top : -20px;
+	maring-right : 20px;
+	font-size : 25px;
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+</style>
+
+<div class="slide title">
+
+	<h1 style="margin-top:100px">Haxe: today + future</h1>
+
+	<p class="visible">
+		<b>Nicolas Cannasse</b><br/>
+		Director, Haxe Foundation<br/>
+		@ncannasse<br/>
+		<i>Haxe US Summit 2018</i>
+	</p>
+
+</div>
+
+<div class="slide title">
+
+	<h1>Haxe: today</h1>
+
+</div>
+
+<div class="slide">
+
+	<h1>Haxe Foundation</h1>
+
+	<p>
+		A brief history:
+	</p>
+
+	<ul>
+	<li>2005: started Haxe</li>
+	<li>2012: quit previous company to start Shiro Games, need to transfer rights</li>
+	<li>2013: find partners, fund freelancing work (haxe 3.x, haxe.org, etc.)</li>
+	<li>operating on small budget (~60K€/year in 2015-2016)</li>
+	<li>slightly better in 2017 (~100K€)
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>New Entreprise Partners</h1>
+
+	<center>
+	<p>
+		<img src="img/hs2017/playtika.png" style="vertical-align:middle"/>
+		<img src="img/hs2017/flowplay.png" style="vertical-align:middle"/>
+		<img src="img/hs2017/docler2.jpg" style="vertical-align:middle"/>
+	</p>
+	<p>
+		Thanks to them, and all others.
+	</p>
+	</center>
+
+</div>
+
+<div class="slide">
+
+	<h1>Haxe Team</h1>
+
+	<ul>
+	<li><span class="c">Alexander Kuzmenko</span> PHP target maintainer</li>
+	<li><span class="c">Caue Waneck</span> Java/C# target maintainer</li>
+	<li><span class="c">Dan Korolev</span> and <span class="c">Jens Fischer</span> #ide team</li>
+	<li><span class="c">Hugh Sanderson</span> CPP target maintainer</li>
+	<li><span class="c">Justin Donaldson</span> Lua target maintainer</li>
+	<li><span class="c">Mark Knol</span> Haxe.org and cookbook</li>
+	<li><span class="c">Phil Chertok</span> marketing director</li>
+	<li><span class="c">Simon Krajewski</span> compiler maintainer</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>How we work</h1>
+
+	<ul>
+	<li>Slack haxe-dev:
+		<ul>
+		<li>various technical discussions
+		<li>mostly for core team day to day issues
+		</ul>
+	<li>Github:
+		<ul>
+		<li>issues / code comments
+		<li>pull requests
+		<li>continous integration (mails that I should read)
+		</ul>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>Haxe Evolution</h1>
+
+	<ul>
+	<li>Allows community proposals
+		<ul>
+		<li><code>https://github.com/HaxeFoundation/haxe-evolution</code></li>
+		</ul>
+	</li>
+	<li>Submit HXP as a pull request
+		<ul>
+		<li>must be fully specified</li>
+		<li>allows variant (A or B)</li>
+		</ul>
+	<li>Discussion
+		<ul>
+		<li>Usefulness, clearness, implementation</li>
+		</ul>
+	<li>
+		Not perfect yet
+		<ul>
+		<li>Language/syntax design and compiler knowledge are not easy
+		<li>Consider Haxe style "as a whole"</li>
+		</ul>
+	</li>
+	<li>Success : HXP #1 (Any), #8 (Arrow functions)</li>
+	</ul>
+
+</div>
+
+
+<div class="slide">
+	<h1>What we're good at</h1>
+
+	<ul>
+	<li>Maintaining Haxe
+	<li>Keeping 12 targets working while changing things!
+	<li>Making one of the fastest high level compiler available
+	<li>Having a quite high level of stability
+	<li>Keep a clean codebase
+	<li>Being gentle (no drama among devs)
+	<li>Doing all of this for a long time
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>What we're bad at</h1>
+
+	<ul>
+	<li>Working with milestones / schedules
+	<li>Decision making
+	<li>Communication to outside world
+	<li>Improving our internal organization
+	<li>Business development
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>Haxe Foundation</h1>
+
+	<ul>
+	<li>2015-2016 : Looking for CEO / partership
+		<ul><li>What Haxe would become then?</li></ul>
+	<li>Our important values:
+		<ul>
+		<li>a programming language is not a product</li>
+		<li>keep as much as possible open source</li>
+		<li>empower developers, not tie them</li>
+		</ul>
+	<li><del>Still thinking about how to do things better</del>
+	<li>Recruiting!
+		<ul>
+		<li>Marketing director: improve awareness and communication <span class="c">[Blossom.hx - Fri. 1pm]</span></li>
+		<li>Fulltime compiler dev. (still open)</li>
+		</ul>
+	</ul>
+
+</div>
+
+<div class="slide title">
+
+	<h1>Haxe: future - Haxe 4.0</h1>
+
+</div>
+
+
+<div class="slide">
+
+	<h1>Haxe 4</h1>
+
+	<ul>
+	<li>Haxe is mature (language wise)
+	<li>Priority : tooling/quality - over language feature Y
+	<li>1.897 commits since last year conference
+	</ul>
+
+</div>
+
+
+<div class="slide">
+
+	<h1>Haxe latest features</h1>
+
+	<ul>
+	<li>Lua/PHP7 targets improvements
+		<ul>
+		<li>new targets introduced in 3.3/3.4
+		<li>more stable, better code output, bugfixes
+		</ul>
+	<li>New "Eval" macro interpreter
+		<ul>
+		<li>4x+ speed up !
+		</ul>
+	<li>Compilation Server
+		<ul>
+		<li>Cache the code, allows fast compilation/completion
+		<li>more stability, bugfixes
+		</ul>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>Haxe tools support</h1>
+
+	<ul>
+	<li>Visual Studio Code integration
+		<ul>
+		<li><code>vshaxe</code> extension
+		<li>Credit to IDE team (Dan, Jens, Simon)
+		</ul>
+	<li>Compiler Services:
+		<ul>
+		<li>Completion
+		<li>Hover type tips
+		<li>Refactoring (rename var, find all refs...)
+		<li>Diagnostics (realtime errors, unused var/import, no side effect...)
+		</ul>
+	<li>Goal: standard IDE for Haxe 
+		<ul>
+		<li>Alternative: IntelliJ
+		<li>Most of the tools can integrate into other IDEs
+		</ul>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>More Haxe 4</h1>
+
+	<ul>
+	<li>Arrow functions: <code class="c">arr.map(x -> x + 1)</code>
+	<li>New function type syntax: <code class="c">(x:Int,y:String) -> Int</code>
+	<li>New <code>final</code> keyword: <code class="c">final x = 0;</code>
+	<li>Final for fields: <code class="c">typedef Point = { final x : Int; final y : Int; }</code>
+	<li>Syntax lift: <code class="c">@:enum abstract</code> becomes <code class="c">enum abstract</code> etc.
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>Plans for Haxe 4+</h1>
+
+	<ul>
+	<li>Unicode by default (mostly affect Neko and C++ targets)
+	<li><code>for( key => value in map )</code> iteration
+	<li>inline XML markup for DSLs/React/etc.
+	<li>async / await implementation (all platforms)</code>
+	<li>... and more (contribute on <span class="c">github/haxefoundation/haxe-evolution</span>)
+	</ul>
+
+</div>
+
+
+<div class="slide title">
+
+	<h1>HashLink: today</h1>
+
+</div>
+
+
+<div class="slide">
+
+	<h1>HashLink target</h1>
+
+	<ul>
+	<li>A <span style="color : #f48821">virtual</span> machine for Haxe
+	<li>Announced in October 2016 last year
+	<li>Made available in Haxe 3.4 in November
+	<li>HashLink 1.5 compatible with Haxe 4.0-RC3
+	<li>Used to develop and ship Northgard (production stable!)
+	</ul>
+
+</div>
+
+<div class="slide" bg="hs2017/northgard.jpg">
+</div>
+
+<div class="slide">
+
+	<h1>HL Dual compilation</h1>
+
+	<ul>
+	<li>Bytecode:
+		<ul>
+		<li>Compile with <code>haxe -hl myapp.hl ...</code>
+		<li>Run with <code>hl myapp.hl &lt;args&gt;</code>
+		<li>JIT x86 and x86_64
+		<li>Similar to Neko + FASTER
+		<li>Really faster!
+		</ul>
+	<li>Native code:
+		<ul>
+		<li>Generate with <code>haxe -hl out/myapp.c ...</code>
+		<li>Compile with <code>gcc -o myapp -std=c11 out/myapp.c -Lhl</code></li>
+		</ul>
+</div>
+
+<div class="slide">
+
+	<h1>HL Dual compilation</h1>
+
+	<ul>
+	<li>Shared runtime
+	<ul>
+	<li>Standard library</li>
+	<li>Garbage collector</li>
+	<li>Value in-memory representation</li>
+	</ul>
+	<li>Full C compatilibity</li>
+	<li>Very low native dependencies</li>
+	<li>Windows / OSX / Linux / Mobile / Consoles (!)</li>
+	<li>VSCode integration with <span class="c">full Debugger support!</span></li>
+	<li>Want to learn more? <span class="c">[Heaps.io Sat.3pm]</span></li>
+	</ul>
+
+</div>
+
+<div class="slide title">
+
+	<h1>Games</h1>
+	<h2>Haxe's 2018 <span class="c">success stories</span></h2>
+
+</div>
+
+
+<div class="slide">
+
+	<h1>FlowPlay 1.4MLOC</h1>
+
+	<p style="text-align:center">
+		<img src="img/hs2017/flowplay_vb.png"/>
+	</p>
+
+</div>
+
+<div class="slide">
+
+	<h1>Steam Indie Games</h1>
+
+	<p style="text-align:center">
+		<img src="img/hs2017/ng_stats2.png"/>
+	</p>
+
+</div>
+
+<div class="slide">
+
+	<h1>Steam Indie Games</h1>
+
+	<p style="text-align:center">
+		<img src="img/hs2017/deadcells_stats2.png"/>
+	</p>
+
+</div>
+
+<div class="slide">
+
+	<h1>Steam Indie Games</h1>
+
+	<ul>
+	<li>Both Northgard and Dead Cells uses HL+Heaps</li>
+	<li>Released this year on Steam, reached top sellers quickly</li>
+	<li>Proofs that Haxe is ready for prime time for this usage</li>
+	<li>Expect more to come in the future!</li>
+	</ul>
+
+</div>
+
+<div class="slide title">
+
+	<h1>Thank You</h1>
+	<h2>Questions?</h2>
+
+</div>
+
+
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
