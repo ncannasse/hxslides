@@ -1,4 +1,5 @@
 import js.jquery.Helper.*;
+using App;
 
 @:expose
 class App {
@@ -7,6 +8,16 @@ class App {
 	static var H = 600;
 	static var SCALE = 1.;
 	static var WIDE = false;
+	
+	static function _show( j : js.jquery.JQuery ) {
+		j.css({visibility:""});
+		return j;
+	}
+
+	static function _hide( j : js.jquery.JQuery ) {
+		j.css({visibility:"hidden"});
+		return j;
+	}
 
 	public static function main() {
 		var kwds = ["abstract", "break", "case", "cast", "class", "continue", "default", "do", "dynamic", "else", "enum", "extends", "extern", "for", "function", "if", "implements", "import", "in", "inline", "interface", "macro", "new", "override", "package", "private", "public", "return", "static", "switch", "throw", "try", "typedef", "untyped", "using", "var", "while" ];
@@ -60,7 +71,7 @@ class App {
 			}
 			div.insertAfter(pre);
 			pre.remove();
-			if( clickThrough ) div.hide();
+			if( clickThrough ) div._hide();
 		}
 
 		var slides = [];
@@ -78,18 +89,18 @@ class App {
 			var id = slides.length;
 			var parts = s.find("li,pre,h2,p,div.pre .line,.click").not("li > pre:first-child").filter(clickThrough ? "*" : "empty");
 			parts = parts.not(".visible");
-			parts.hide();
+			parts._hide();
 			if( id == cur ) {
 				for( i in 0...sub )
-					J(parts[i]).show().parent().show();
+					J(parts[i])._show().parent()._show();
 			}
 			slides.push(p);
 			p.hide();
 			s.click(function(e) {
 				if( sub < parts.length ) {
 					var p = J(parts[sub]);
-					p.show().parent().show();
-					if( p.hasClass("hidePrev") ) J(parts[sub - 1]).hide();
+					p._show().parent()._show();
+					if( p.hasClass("hidePrev") ) J(parts[sub - 1])._hide();
 					if( p.hasClass("highlight") ) for( p2 in parts.elements() ) p2.toggleClass("light", p[0] == p2[0]).toggleClass("unlight", p[0] != p2[0]);
 					sub++;
 				} else {

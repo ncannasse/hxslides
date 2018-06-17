@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<link href='http://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Source Code Pro&amp;v2' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'/>
+	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body class="black">
+
+<style>
+.slide {
+	width : 1580px; 
+	height : 880px;
+	-webkit-transform: scale(0.6);
+	-webkit-transform-origin: center top 0px;
+}
+.slide {
+	border: none !important;
+}
+.slide p {
+	font-size : 30px;
+}
+
+.slide li p {
+	font-family:verdana;
+	font-style:italic;
+}
+h1, h2, .slide li {
+	font-family : "Press Start 2P";
+	font-weight : normal;
+}
+
+h1 {
+	font-size : 40px !important;
+	margin-top : 30px;
+}
+
+h2 {
+	font-size : 30px !important;
+	color : #BBC;
+}
+
+.slide li {
+	font-size : 30px;
+	list-style : square !important;
+}
+
+.slide ul.c li {
+	list-style : none !important;
+	text-align : center; 
+	margin-top : 50px;
+}
+
+.slide table {
+	border : none;
+}
+
+.slide li span {
+	color : #08F;
+}
+
+.slide table tr, .slide table td {
+	border:none;
+	padding : 50px;
+}
+
+.slide table.t {
+	background-color : #333;
+	border: 2px solid white;
+}
+
+.slide table.t td {
+	font-size : 40px;
+	padding: 30px 80px;
+	border : 1px solid white;
+	text-align : center;
+}
+
+.slide table.t .hide {
+	background-color : #111;
+	color : #333;
+}
+
+.slide > p {
+	text-align : center;
+	font-size : 40px;
+	font-style : italic;
+}
+
+</style>
+
+<div class="slide title">
+
+	<h1 style="margin-top:350px">Tech Maison</h1>
+	<h2 class="visible">pour le meilleur et pour le pire</h2>
+
+	<p class="visible" style="float:right;top:0px">
+		<b>Nicolas Cannasse</b><br/>
+		Shiro Games<br/>
+		@ncannasse<br/>
+		<i>GameCamp 2018</i>
+	</p>
+
+</div>
+
+<div class="slide">
+
+	<h1>A propos</h1>
+
+	<ul class="c" style="margin-top:150px">
+	<li>Co-fondateur de Motion-Twin
+		<p>La Brute, DinoRPG, Hordes, KadoKado...</p>
+	</span>
+	<li>Depuis 2005: Haxe
+		<p>Haxe Foundation</p>
+	<li>Depuis 2012: Shiro Games
+		<p>Evoland 1&2, Northgard</p>
+	</li>
+	</ul>
+
+</div>
+
+<div class="slide">
+
+	<h1>La boite magique</h1>
+
+	<br/><br/>
+	<img src="img/gc18/magicbox.png" style="max-width:1000px"/>
+
+</div>
+
+<div class="slide">
+
+	<h1>Artiste vs Ingénieur</h1>
+
+	<table style="margin-top: 100px">
+	<tr>
+	<td>
+	<ul>
+	<li>Expérimenter
+	<li>Se familariser
+	<li>Maitriser
+	<li>Dépasser
+	</ul>
+	</td>
+	<td>
+	<ul>
+	<li>Expérimenter
+	<li>Démonter
+	<li>Comprendre
+	<li>Améliorer
+	</ul>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2">
+	<p style="text-align:center;font-size:35px">
+		Les deux approches sont complémentaires !
+	</p>	
+	</td>
+	</tr>
+	</table>
+
+</div>
+
+<div class="slide">
+	<h1>L'importance des outils</h1>
+
+	<p style="font-size:60px;text-align : center">
+		<b>VITALE !</b>
+	</p>
+	<ul class="c">
+	<li>exécution &gt; idée
+	<li>"principe IKEA"
+	<li>va définir votre <em>workflow</em>
+	<li>les interactions dans votre équipe
+	<li>moins de dépendance (bug,feature)
+	<li>personne ? trouvez quelqu'un !
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Les erreurs à éviter</h1>
+
+	<ul class="c" style="margin-top:150px">
+	<li>"l'outil pour l'outil"
+	<li>"on avance... sur les outils"
+	<li>"half-baked": stabilité/bugs
+	<li>H.U.I <span class="click">(Horrible User Interface)</span>
+	</ul>
+	<p>l'outil doit servir le jeu (pas l'inverse)</p>
+
+</div>
+
+<div class="slide">
+
+	<h1>Créer des outils ?</h1>
+
+	<table class="t" style="margin-top:100px">
+	<tr>
+	<td>
+		<span class="click">Game Code</span>
+	</td>
+	<td>
+		<span class="click">Scripts</span>
+	</td>
+	<td rowspan="2">
+		<span class="click">Middleware</span>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2">
+		<span class="click">Engine</span>
+	</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<span class="click">Langage</span>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<span class="click">Runtime</span>
+		</td>
+		<td colspan="2">
+			<span class="click">DirectX, OpenGL, etc.</span>
+		</td>
+	</tr>
+	</table>
+
+</div>
+
+<div class="slide">
+
+	<h1>Créer des outils ?</h1>
+
+	<table class="t" style="margin-top:100px">
+	<tr>
+	<td class="hide">
+		<span>Game Code</span>
+	</td>
+	<td  class="hide">
+		<span>Scripts</span>
+	</td>
+	<td rowspan="2">
+		<span>Middleware</span>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2">
+		<span >Engine</span>
+	</td>
+	</tr>
+	<tr class="hide">
+		<td colspan="3">
+			<span >Langage</span>
+		</td>
+	</tr>
+	<tr class="hide">
+		<td>
+			<span >Runtime</span>
+		</td>
+		<td colspan="2">
+			<span >DirectX, OpenGL, etc.</span>
+		</td>
+	</tr>
+	</table>
+	<p class="click">
+		Echange de données entre jeu/engine.
+	</p>
+
+</div>
+
+<div class="slide">
+	<h1>Data: Définition</h1>
+
+	<ul class="c" style="margin-top:250px">
+	<li>outils produisent des data
+	<li>engine/game les consomment 
+	<li>séparation edit/run
+	<li>différents formats
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Data: Edition</h1>
+
+	<p>
+		Orienté Collaboration
+	</p>
+	<ul class="c" style="margin-top:150px">
+	<li>ouverte a plusieurs métiers 
+		<p>(GD/LD/Dev/Art)
+	<li>vérification stricte
+		<p>Eviter les aller-retour
+	<li>readable / diff / merge
+		<p>Shiro Games: <span>JSON</span>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Data: Runtime</h1>
+
+	<p>
+		Orienté Performance
+	</p>
+	<ul class="c" style="margin-top:150px">
+	<li>contraintes CPU / Mem / GPU
+	<li>contraintes spécifique Engine
+	<li>build depuis le format d'edition
+	<li>cache (si nécessaire)
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Data: Exemple</h1>
+	
+	<p>
+		CastleDB.org - Static Database
+	<p>
+	
+	<img src="img/gc18/castledb.png" style="max-width:900px"/>
+	
+</div>
+
+<div class="slide">
+	<h1>Réutilisation Outils</h1>
+	
+	<ul class="c" style="margin-top:100px">
+	<li>souhaitable
+		<p>XP équipe, amélioration, investissement long terme
+	<li>pas toujours facile
+		<p><span>méthode A:</span> générique
+		<p><span>méthode B:</span> copie & modifie
+	<li>ne pas négliger le danger
+		<p>/!\ outil trop générique
+	<li>nécessite une reflection et des essais
+	</ul>
+	
+</div>
+
+<div class="slide">
+	<h1>Choix Langage</h1>
+	
+	<p>A chaque partie son <span>bon</span> niveau de code?
+
+	<table class="t">
+	<tr>
+		<td><span class="click">Engine
+		<td><span class="click">Low Level (C++)
+	<tr>
+		<td><span class="click">Outils
+		<td><span class="click">High Level (C#)
+	<tr>
+		<td><span class="click">Game Code
+		<td><span class="click">High Level (C#)
+	<tr>
+		<td><span class="click">Contenu
+		<td><span class="click">Script (Lua)
+	</tr>
+	</table>
+	
+</div>
+
+<div class="slide">
+	<h1>Choix Langage</h1>
+	
+	<p class="visible">A Shiro Games:
+
+	<table class="t">
+	<tr>
+		<td>Engine
+		<td><span class="click">Haxe (+libs C/C++)
+	<tr>
+		<td>Outils
+		<td><span class="click">Haxe / JS (HTML5 UI)
+	<tr>
+		<td>Game Code
+		<td><span class="click">Haxe
+	<tr>
+		<td>Contenu
+		<td><span class="click">HScript
+	</tr>
+	</table>
+	
+</div>
+
+<div class="slide">
+	<h1>Performances Outils</h1>
+	
+	<p>
+		Améliorer le focus <span>(Time To Play)</span>
+	</p>
+	
+	<ul class="c" style="margin-top:150px">
+	<li>compilation rapide
+	<li>optimiser les temps de load
+	<li>"live reload" pour les données
+	<li>Ctrl+S pour enregistrer l'état
+	<li>Passer les menus !
+	<p>
+		Exemple: Northgard <span>&lt;4s</span>
+	</p>
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Open Source</h1>
+	
+	<ul class="c" style="margin-top:150px">
+	<li>changement majeur dans l'industrie
+	<li>secteur JV encore en retard
+		<p>Libs mais peu de moteurs
+		<p>Godot / <span>Heaps.io</span> (Haxe) / etc.
+	<li>permet la modification du code
+	<li>collaboration sur les outils
+	</ul>
+
+</div>
+
+<div class="slide">
+	<h1>Derniers Conseils</h1>
+	
+	<ul class="c" style="margin-top:250px">
+	<li>se poser les bonnes questions
+	<li>recherche(+essai) de l'existant
+	<li>en discuter en équipe
+	<li>ne pas hésiter !
+	</ul>
+</div>
+
+<div class="slide title">
+	<h1 style="display:none">Merci</h1>
+	
+	<p style="text-align:center;position:relative;margin-top:400px" class="visible">
+		Le chemin avant la destination.
+	</p>
+	
+	<p class="visible">
+		Merci !<br/>
+		nicolas@shirogames.com<br/>
+		@ncannasse
+	</p>
+
+</div>
+
+
+<script type="text/javascript" src="js/app.js"></script>
+<script>
+App.W = 1600;
+App.H = 900;
+</script>
+
+</body>
+</html>
